@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import HeaderBar from './components/HeaderBar.jsx';
-import Footer from './components/Footer.jsx';
-import HomePage from './components/HomePage.jsx';
+import HeaderBar from './pages/HeaderBar.jsx';
+import Footer from './pages/Footer.jsx';
+import HomePage from './pages/HomePage.jsx';
 import { ToastContainer } from 'react-toastify';
 import './index.css';
 
