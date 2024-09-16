@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import HeaderBar from './pages/HeaderBar.jsx';
 import Footer from './pages/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
+import NewCustomerForm from './pages/NewCustomerForm.jsx';
 import { ToastContainer } from 'react-toastify';
 import './index.css';
 
@@ -17,6 +18,7 @@ function MainLayout() {
       <Routes>
         {/* frontend */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/new-customer" element={<NewCustomerForm />} />
       </Routes>
       {!isBackendRoute && <Footer />}
     </>
