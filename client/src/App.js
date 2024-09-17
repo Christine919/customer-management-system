@@ -6,6 +6,9 @@ import HomePage from './pages/HomePage.jsx';
 import NewCustomerForm from './pages/NewCustomerForm.jsx';
 import NewAppointmentForm from './pages/NewAppointmentForm.jsx';
 import NewOrderForm from './pages/NewOrderForm.jsx';
+import DashboardLayout from './pages/dashboards/DashboardLayout.jsx';
+import ProductsList from './pages/dashboards/ProductsList.jsx';
+import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
 import { ToastContainer } from 'react-toastify';
 import './index.css';
 
@@ -23,6 +26,11 @@ function MainLayout() {
         <Route path="/new-customer" element={<NewCustomerForm />} />
         <Route path="/new-appointment" element={<NewAppointmentForm />}/>
         <Route path="/new-order" element={<NewOrderForm />}/>
+
+        <Route path="/backend" element={<DashboardLayout />}>
+          <Route path="products" element={<ProductsList />} />
+          <Route path="appointments" element={<AppointmentCalendar />} />
+        </Route>
       </Routes>
       {!isBackendRoute && <Footer />}
     </>
