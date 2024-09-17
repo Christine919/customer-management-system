@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import supabase from '../config/supabaseClient';
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2'; // Import Swal from sweetalert2
-import withReactContent from 'sweetalert2-react-content'; // Import SweetAlert2 with React support
+import Swal from 'sweetalert2'; 
+import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
