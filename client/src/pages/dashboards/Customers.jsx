@@ -268,10 +268,11 @@ const Customers = () => {
               <table className="min-w-full bg-white border border-gray-300 shadow-md">
                 <thead className="bg-purple-300 text-left text-white-500 uppercase text-sm leading-normal">
                   <tr>
-                    <th className="py-3 px-4">Order ID</th>
+                  <th className="py-3 px-4">Order ID</th>
                     <th className="py-3 px-4">Total Price</th>
+                    <th className="py-3 px-4">Payment Method</th>
+                    <th className="py-3 px-4">Paid Date</th>
                     <th className="py-3 px-4">Status</th>
-                    <th className="py-3 px-4">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-700 text-sm font-light">
@@ -279,14 +280,16 @@ const Customers = () => {
                     <tr key={order.order_id} className="border-b border-gray-200 hover:bg-gray-100">
                       <td className="py-3 px-4 text-left whitespace-nowrap">{order.order_id}</td>
                       <td className="py-3 px-4 text-left whitespace-nowrap">RM {order.total_order_price}</td>
+                      <td className="py-3 px-4 text-left whitespace-nowrap">{order.payment_method}</td>
+                      <td className="py-3 px-4 text-left whitespace-nowrap">{formatDate(order.paid_date)}</td>
                       <td className="py-3 px-4 text-left whitespace-nowrap">{order.order_status}</td>
                       <td className="py-3 px-4 text-left whitespace-nowrap">
-                        <button
+                        {/* <button
                           className="bg-pink-500 text-white px-3 py-1 rounded-md hover:bg-pink-600"
                           onClick={() => navigate(`/backend/orders/${order.order_id}`)}
                         >
                           View Order
-                        </button>
+                        </button> */}
                       </td>
                     </tr>
                   ))}
