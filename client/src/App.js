@@ -8,6 +8,7 @@ import NewAppointmentForm from './pages/NewAppointmentForm.jsx';
 import NewOrderForm from './pages/NewOrderForm.jsx';
 import DashboardLayout from './pages/dashboards/DashboardLayout.jsx';
 import ProductsList from './pages/dashboards/ProductsList.jsx';
+import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
 import { ToastContainer } from 'react-toastify';
 import './index.css';
@@ -29,6 +30,7 @@ function MainLayout() {
 
         <Route path="/backend" element={<DashboardLayout />}>
           <Route path="products" element={<ProductsList />} />
+          <Route path="services" element={<ServicesList />} />
           <Route path="appointments" element={<AppointmentCalendar />} />
         </Route>
       </Routes>
