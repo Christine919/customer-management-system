@@ -8,6 +8,7 @@ import NewAppointmentForm from './pages/NewAppointmentForm.jsx';
 import NewOrderForm from './pages/NewOrderForm.jsx';
 import DashboardLayout from './pages/dashboards/DashboardLayout.jsx';
 import Customers from './pages/dashboards/Customers.jsx';
+import OrderDashboard from './pages/dashboards/Orders.jsx';
 import ProductsList from './pages/dashboards/ProductsList.jsx';
 import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
@@ -30,7 +31,8 @@ function MainLayout() {
         <Route path="/new-order" element={<NewOrderForm />}/>
 
         <Route path="/backend" element={<DashboardLayout />}>
-        <Route path="customers" element={<Customers />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="orders" element={<OrderDashboard />} />
           <Route path="products" element={<ProductsList />} />
           <Route path="services" element={<ServicesList />} />
           <Route path="appointments" element={<AppointmentCalendar />} />
