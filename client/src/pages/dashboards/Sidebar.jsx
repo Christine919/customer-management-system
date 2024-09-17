@@ -12,7 +12,7 @@ const Sidebar = () => {
 };
 
   return (
-    <div className="flex flex-col p-2 md:p-3 h-screen shadow-lg w-20 lg:w-24 xl:w-28 transition-width duration-300 bg-gradient-to-b from-pink-500 to-purple-800">
+    <div className="flex flex-col p-2 md:p-3 h-screen shadow-lg w-30 lg:w-24 xl:w-28 transition-width duration-300 bg-gradient-to-b from-pink-500 to-purple-800">
     <div className="flex flex-col items-center mb-6">
       <Link to="/" className="flex flex-col items-center text-white hover:text-pink-200">
       <h2 className="text-xs md:text-sm lg:text-base font-serif">Aesthetics23</h2>

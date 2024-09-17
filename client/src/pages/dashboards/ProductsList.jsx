@@ -231,7 +231,7 @@ const ProductsList = () => {
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-300 shadow-md">
                     <thead className="bg-gray-200 text-sm leading-normal rounded-lg">
-                        <tr className="bg-purple-300 text-black uppercase text-left">
+                        <tr className="bg-purple-300 uppercase text-left">
                             <th className="py-3 px-4 text-left">ID</th>
                             <th className="py-3 px-4 text-left">Name</th>
                             <th className="py-3 px-4 text-left">Price</th>
@@ -251,13 +251,13 @@ const ProductsList = () => {
                                         <td className="py-3 px-4 text-left whitespace-nowrap">
                                             <button
                                                 onClick={() => setEditProduct(product)}
-                                                className="text-blue-500 hover:text-blue-700 mx-2"
+                                                className="bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600 mr-2"
                                             >
                                                 Edit
                                             </button>
                                             <button
                                                 onClick={() => handleDeleteProduct(product.product_id)}
-                                                className="text-red-500 hover:text-red-700"
+                                                className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
                                             >
                                                 Delete
                                             </button>
