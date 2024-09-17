@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation,} from 'react-router-dom';
 import { HomeIcon, UserIcon, ClipboardListIcon, ShoppingBagIcon, CalendarIcon, ChartBarIcon, LogoutIcon } from '@heroicons/react/outline';
+import supabase from '../../config/supabaseClient';
 
 const Sidebar = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/login'; // Redirect to login after logging out
+};
 
   return (
     <div className="flex flex-col p-2 md:p-3 h-screen shadow-lg w-20 lg:w-24 xl:w-28 transition-width duration-300 bg-gradient-to-b from-pink-500 to-purple-800">

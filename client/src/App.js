@@ -12,7 +12,8 @@ import OrderDashboard from './pages/dashboards/Orders.jsx';
 import ProductsList from './pages/dashboards/ProductsList.jsx';
 import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
-import { ToastContainer } from 'react-toastify';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './ProtectedRoute';
 import './index.css';
 
 function MainLayout() {
@@ -22,15 +23,16 @@ function MainLayout() {
   return (
     <>
       {!isBackendRoute && <HeaderBar />}
-      <ToastContainer />
       <Routes>
         {/* frontend */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/new-customer" element={<NewCustomerForm />} />
-        <Route path="/new-appointment" element={<NewAppointmentForm />}/>
-        <Route path="/new-order" element={<NewOrderForm />}/>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/new-customer" element={<ProtectedRoute><NewCustomerForm /></ProtectedRoute>} />
+        <Route path="/new-appointment" element={<ProtectedRoute><NewAppointmentForm /></ProtectedRoute>} />
+        <Route path="/new-order" element={<ProtectedRoute><NewOrderForm /></ProtectedRoute>} />
 
-        <Route path="/backend" element={<DashboardLayout />}>
+        {/* backend (protected) */}
+        <Route path="/backend" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route path="customers" element={<Customers />} />
           <Route path="orders" element={<OrderDashboard />} />
           <Route path="products" element={<ProductsList />} />
