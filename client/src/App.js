@@ -4,6 +4,7 @@ import HeaderBar from './pages/HeaderBar.jsx';
 import Footer from './pages/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NewCustomerForm from './pages/NewCustomerForm.jsx';
+import NewAppointmentForm from './pages/NewAppointmentForm.jsx';
 import { ToastContainer } from 'react-toastify';
 import './index.css';
 
@@ -19,6 +20,7 @@ function MainLayout() {
         {/* frontend */}
         <Route path="/" element={<HomePage />} />
         <Route path="/new-customer" element={<NewCustomerForm />} />
+        <Route path="/new-appointment" element={<NewAppointmentForm />}/>
       </Routes>
       {!isBackendRoute && <Footer />}
     </>

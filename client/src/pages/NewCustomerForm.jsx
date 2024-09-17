@@ -33,89 +33,89 @@ const NewCustomerForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      const { 
-          fname, lname, date_of_birth, phone_no, email, address, 
-          city, postcode, country, sickness, sex, pregnant, 
-          remark, stratum_corneum, skin_type, skincare_program, micro_surgery 
-      } = formData;
-  
-      // Insert customer data into the Supabase 'customers' table
-      const { data, error, status } = await supabase
-          .from('customers')
-          .insert([{
-              fname,
-              lname,
-              date_of_birth,
-              phone_no,
-              email,
-              address,
-              city,
-              postcode,
-              country,
-              sickness,
-              sex,
-              pregnant,
-              remark,
-              stratum_corneum,
-              skin_type,
-              skincare_program,
-              micro_surgery,
-          }]);
-  
-      // Handle response based on the status and error
-      if (error) {
-          // Check if the error is related to unique constraint violation
-          let errorMessage = 'Please fill in all the fields correctly.';
-          if (error.message.includes('unique constraint')) {
-              if (error.message.includes('phone_no')) {
-                  errorMessage = 'Duplicated phone number';
-              } else if (error.message.includes('email')) {
-                  errorMessage = 'Duplicated email';
-              }
-          }
-          MySwal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: errorMessage,
-              confirmButtonText: 'Try Again'
-          });
-      } else if (status === 201) { // Check if the status is a success code (201 - Created)
-          console.log("Success:", data);
-          MySwal.fire({
-              icon: 'success',
-              title: 'Success',
-              text: 'Customer added successfully!',
-              confirmButtonText: 'OK'
-          }).then(() => {
-              // Reset form fields after success alert is closed
-              setFormData({
-                  fname: "",
-                  lname: "",
-                  date_of_birth: "",
-                  phone_no: "",
-                  email: "",
-                  address: "",
-                  city: "",
-                  postcode: "",
-                  country: "",
-                  sickness: "",
-                  sex: "",
-                  pregnant: "",
-                  remark: "",
-                  stratum_corneum: "",
-                  skin_type: "",
-                  skincare_program: "",
-                  micro_surgery: "",
-              });
-              navigate('/'); // Optional: Redirect after successful submit
-          });
-      } else {
-          console.log("Unexpected response:", data, status);
-      }
-  };
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { 
+        fname, lname, date_of_birth, phone_no, email, address, 
+        city, postcode, country, sickness, sex, pregnant, 
+        remark, stratum_corneum, skin_type, skincare_program, micro_surgery 
+    } = formData;
+
+    // Insert customer data into the Supabase 'customers' table
+    const { data, error, status } = await supabase
+        .from('customers')
+        .insert([{
+            fname,
+            lname,
+            date_of_birth,
+            phone_no,
+            email,
+            address,
+            city,
+            postcode,
+            country,
+            sickness,
+            sex,
+            pregnant,
+            remark,
+            stratum_corneum,
+            skin_type,
+            skincare_program,
+            micro_surgery,
+        }]);
+
+    // Handle response based on the status and error
+    if (error) {
+        // Check if the error is related to unique constraint violation
+        let errorMessage = 'Please fill in all the fields correctly.';
+        if (error.message.includes('unique constraint')) {
+            if (error.message.includes('phone_no')) {
+                errorMessage = 'Duplicated phone number';
+            } else if (error.message.includes('email')) {
+                errorMessage = 'Duplicated email';
+            }
+        }
+        MySwal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+            confirmButtonText: 'Try Again'
+        });
+    } else if (status === 201) { // Check if the status is a success code (201 - Created)
+        console.log("Success:", data);
+        MySwal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Customer added successfully!',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Reset form fields after success alert is closed
+            setFormData({
+                fname: "",
+                lname: "",
+                date_of_birth: "",
+                phone_no: "",
+                email: "",
+                address: "",
+                city: "",
+                postcode: "",
+                country: "",
+                sickness: "",
+                sex: "",
+                pregnant: "",
+                remark: "",
+                stratum_corneum: "",
+                skin_type: "",
+                skincare_program: "",
+                micro_surgery: "",
+            });
+            navigate('/'); // Optional: Redirect after successful submit
+        });
+    } else {
+        console.log("Unexpected response:", data, status);
+    }
+};
 
     return (
         <form
