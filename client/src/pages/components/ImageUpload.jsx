@@ -68,7 +68,7 @@ function ImageUpload({ onImageUpload, reset }) {
                 </Col>
               ))
             ) : (
-              <p>No images to display</p>
+              <p></p>
             )}
           </Row>
         </>

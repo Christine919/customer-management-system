@@ -97,12 +97,32 @@ function OrderDashboard() {
     };
 
     const updateOrder = async (orderId, details) => {
-        const { error } = await supabase
-            .from('orders')
-            .update(details)
-            .eq('order_id', orderId);
-        if (error) throw error;
-    };
+        try {
+            // Ensure you are only sending fields that exist in the schema
+            const { error } = await supabase
+                .from('orders')
+                .update({
+                    user_id: details.user_id,
+                    fname: details.fname,
+                    email: details.email,
+                    phone_no: details.phone_no,
+                    total_order_price: details.total_order_price,
+                    payment_method: details.payment_method,
+                    paid_date: details.paid_date,
+                    order_status: details.order_status,
+                    order_remark: details.order_remark,
+                    photos: details.photos
+                })
+                .eq('order_id', orderId);
+    
+            if (error) {
+                throw error;
+            }
+        } catch (error) {
+            console.error('Error updating order:', error);
+            throw error;
+        }
+    };    
 
     const handleDeleteOrderService = async (orderId, serviceId) => {
         // Optimistically update the UI first
@@ -150,26 +170,29 @@ function OrderDashboard() {
     };
 
    // Function to save a new service to the database
-const saveService = async (service) => {
+   const saveService = async (service) => {
     try {
-        const { error } = await supabase
+        const { data, error } = await supabase
             .from('orderservices')
             .insert([service]);
         if (error) throw error;
-        console.log('Service added successfully');
+        console.log('Service added successfully', data);
+        return data; // Return inserted data
     } catch (error) {
         console.error('Error adding service:', error);
     }
 };
 
+
 // Function to save a new product to the database
 const saveProduct = async (product) => {
     try {
-        const { error } = await supabase
+        const { data, error } = await supabase
             .from('orderproducts')
             .insert([product]);
         if (error) throw error;
-        console.log('Product added successfully');
+        console.log('Product added successfully', data);
+        return data; // Return inserted data
     } catch (error) {
         console.error('Error adding product:', error);
     }
