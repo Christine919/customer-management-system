@@ -98,83 +98,48 @@ function OrderDashboard() {
         if (error) throw error;
     };
 
-    const deleteOrder = async (orderId) => {
-        const { error } = await supabase
-            .from('orders')
-            .delete()
-            .eq('order_id', orderId);
-        if (error) throw error;
-    };
-
-    const deleteOrderService = async (orderId, serviceId) => {
-        const { error } = await supabase
-            .from('orderservices')
-            .delete()
-            .eq('order_service_id', serviceId)
-            .eq('order_id', orderId);
-        if (error) throw error;
-    };
-
-    const deleteOrderProduct = async (orderId, productId) => {
-        const { error } = await supabase
-            .from('orderproducts')
-            .delete()
-            .eq('order_product_id', productId)
-            .eq('order_id', orderId);
-        if (error) throw error;
-    };
-
     const handleDeleteOrderService = async (orderId, serviceId) => {
-        if (window.confirm('Are you sure you want to delete this service?')) {
-            try {
-                await deleteOrderService(orderId, serviceId);
-                // Remove the deleted service from the state
-                setOrderDetails(prevState => ({
-                    ...prevState,
-                    services: prevState.services.filter(service => service.order_service_id !== serviceId)
-                }));
-                MySwal.fire({
-                    icon: 'success',
-                    title: 'Deleted',
-                    text: 'Service deleted successfully!',
-                    confirmButtonText: 'OK'
-                });
-            } catch (error) {
+        // Optimistically update the UI first
+        setOrderDetails(prevState => ({
+            ...prevState,
+            services: prevState.services.filter(service => service.order_service_id !== serviceId)
+        }));
+    
+        try {
+            const { error } = await supabase
+                .from('orderservices')
+                .delete()
+                .eq('order_service_id', serviceId)
+                .eq('order_id', orderId);
+    
+            if (error) {
                 console.error('Error deleting service:', error);
-                MySwal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to delete service. Please try again.',
-                    confirmButtonText: 'OK'
-                });
+                // Optionally: You could re-add the service back to the list if the deletion fails.
             }
+        } catch (err) {
+            console.error('Unexpected error:', err); 
+            // Optionally: Handle any rollback in case of error.
         }
-    };
+    };    
     
     const handleDeleteOrderProduct = async (orderId, productId) => {
-        if (window.confirm('Are you sure you want to delete this product?')) {
+        setOrderDetails(prevState => ({
+            ...prevState,
+            products: prevState.products.filter(product => product.order_product_id !== productId)
+        }));
+
             try {
-                await deleteOrderProduct(orderId, productId);
-                // Remove the deleted product from the state
-                setOrderDetails(prevState => ({
-                    ...prevState,
-                    products: prevState.products.filter(product => product.order_product_id !== productId)
-                }));
-                MySwal.fire({
-                    icon: 'success',
-                    title: 'Deleted',
-                    text: 'Product deleted successfully!',
-                    confirmButtonText: 'OK'
-                });
-            } catch (error) {
+                const { error } = await supabase
+                .from('orderproducts')
+                .delete()
+                .eq('order_product_id', productId)
+                .eq('order_id', orderId);
+                
+                  if (error) {
                 console.error('Error deleting product:', error);
-                MySwal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to delete product. Please try again.',
-                    confirmButtonText: 'OK'
-                });
             }
+        } catch (err) {
+            console.error('Unexpected error:', err); 
         }
     };
 
@@ -311,7 +276,6 @@ const saveProduct = async (product) => {
         }));
     };
     
-
     const handleSaveOrder = async (e) => {
         e.preventDefault();
         const totalOrderPrice = calculateTotalOrderPrice();
@@ -376,31 +340,36 @@ const saveProduct = async (product) => {
             });
         }
     };
-    
 
     const handleDeleteOrder = async (orderId) => {
-        if (window.confirm('Are you sure you want to delete this order?')) {
-            try {
-                await deleteOrder(orderId);
-                // Remove the deleted order from the state
-                setOrders(orders.filter(order => order.order_id !== orderId));
-                setSelectedOrder(null);
-                MySwal.fire({
-                    icon: 'success',
-                    title: 'Deleted',
-                    text: 'Order deleted successfully!',
-                    confirmButtonText: 'OK'
-                });
-            } catch (error) {
-                console.error('Error deleting order:', error);
-                MySwal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to delete order. Please try again.',
-                    confirmButtonText: 'OK'
-                });
+        MySwal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const { error } = await supabase
+              .from('orders')
+              .delete()
+              .eq('order_id', orderId);
+    
+            if (error) {
+              console.error("Error deleting order:", error);
+              MySwal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to delete order.',
+              });
+            } else {
+              setOrders(prev => prev.filter(order => order.order_id !== orderId));
+              MySwal.fire('Deleted!', 'Order has been deleted.', 'success');
             }
-        }
+          }
+        });
     };
 
 
@@ -459,21 +428,21 @@ const saveProduct = async (product) => {
     };
       
     const formatDate = (date) => {
+        if (!date) return ''; // Return empty string if date is null/undefined
+        
         if (!(date instanceof Date)) {
-            // Convert string to Date object if necessary
-            date = new Date(date);
+          date = new Date(date);
         }
         
         if (isNaN(date.getTime())) {
-            // Handle invalid Date
-            return '';
+          return ''; // Return empty string for invalid dates
         }
         
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
-    };    
+      };      
 
     return (
         <div className="container mx-auto p-4">

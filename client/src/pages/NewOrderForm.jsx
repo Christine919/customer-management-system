@@ -14,7 +14,7 @@ const NewOrderForm = () => {
     email: '',
     phone_no: '',
     services: [{ service_id: '', service_name: '', service_price: 0, service_disc: 0 }],
-    products: [{ product_id: '', product_name: '', product_price: 0, quantity: 0, product_disc: 0 }],
+    products: [{ product_id: '', product_name: '', product_price: 0, quantity: 1, product_disc: 0 }],
     total_order_price: 0,
     payment_method: '',
     order_status: '',
