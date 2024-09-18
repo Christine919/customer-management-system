@@ -4,6 +4,7 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import bannerImage from '../images/banner.png'; // Add the path to your banner image
 import supabase from '../config/supabaseClient';
+import ProductSlider from './components/ProductSlide';
 
 const HomePage = () => {
   const [ fetchError, setFetchError ] = useState(null);
@@ -88,7 +89,9 @@ const HomePage = () => {
   </div>
 </section>
 
-
+<div>
+  <ProductSlider />
+</div>
       {/* Products Section */}
       <section className="mb-6">
         <h3 className="text-lg sm:text-xl font-semibold uppercase mb-2">Our Products</h3>

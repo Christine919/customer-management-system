@@ -3,11 +3,13 @@ import supabase from '../config/supabaseClient';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'; 
 import withReactContent from 'sweetalert2-react-content';
+import ImageUpload from "./components/ImageUpload";
 
 const MySwal = withReactContent(Swal);
 
 const NewOrderForm = () => {
   const navigate = useNavigate(); 
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     user_id: '',
     fname: '',
@@ -18,7 +20,8 @@ const NewOrderForm = () => {
     total_order_price: 0,
     payment_method: '',
     order_status: '',
-    order_remark: ''
+    order_remark: '',
+    photos:[],
   });
 
   const [services, setServices] = useState([]);
@@ -96,6 +99,15 @@ const NewOrderForm = () => {
     fetchAllData();
   }, [formData.phone_no]);
 
+
+   // Handle image upload
+   const handleImageUpload = (imageUrl) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      photos: [...prevFormData.photos, imageUrl] // Add the new image URL to the array
+    }));
+  };
+
   const handleChange = async (e, index, type) => {
     const { name, value } = e.target;
 
@@ -117,6 +129,7 @@ const NewOrderForm = () => {
       setFormData(prevFormData => ({
         ...prevFormData,
         [name]: value,
+        photos: e.target.value,
       }));
     }
 
@@ -258,6 +271,11 @@ const NewOrderForm = () => {
       total_product_price: (product.product_price * product.quantity * (1 - product.product_disc / 100)).toFixed(2),
     }));
   
+    // Clean the photos array to ensure it contains only valid URLs
+    const validPhotos = Array.isArray(formData.photos) ? formData.photos.filter(photo => {
+      return typeof photo === 'string' && photo.startsWith('http');
+    }) : [];
+    
     try {
       const { error } = await supabase
         .from('orders')
@@ -271,7 +289,7 @@ const NewOrderForm = () => {
             payment_method: formData.payment_method,
             order_status: formData.order_status,
             order_remark: formData.order_remark,
-            photos: null,
+            photos: validPhotos,
           }
         ]);
   
@@ -330,8 +348,12 @@ const NewOrderForm = () => {
           order_status: '',
           order_remark: '',
           services: [{ service_id: '', service_name: '', service_price: 0, service_disc: 0 }],
-          products: [{ product_id: '', product_name: '', product_price: 0, quantity: 0, product_disc: 0 }]
+          products: [{ product_id: '', product_name: '', product_price: 0, quantity: 0, product_disc: 0 }],
+          photos: [] 
         });
+        
+        setIsSubmitted(true);
+        setTimeout(() => setIsSubmitted(false), 1000); 
   
         // Optionally navigate to another page or reset form state
         navigate('/new-order');
@@ -608,6 +630,13 @@ const NewOrderForm = () => {
             onChange={handleChange}
             rows="4"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <ImageUpload
+          onImageUpload={handleImageUpload}
+          reset={isSubmitted}
           />
         </div>
 
