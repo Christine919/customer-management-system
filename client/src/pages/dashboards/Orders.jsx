@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import supabase from '../../config/supabaseClient';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import ImageUpload from '../components/ImageUpload';
+import Modal from '../components/Modal';
 
 const MySwal = withReactContent(Swal);
 
@@ -21,11 +23,14 @@ function OrderDashboard() {
         order_status: '',
         order_remark: '',
         services: [],
-        products: []
+        products: [],
+        photos: [] 
     });
     const [servicesList, setServicesList] = useState([]);
     const [productsList, setProductsList] = useState([]);
     const [originalOrderDetails, setOriginalOrderDetails] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPhotoUrl, setSelectedPhotoUrl] = useState('');
 
     useEffect(() => {
         const loadInitialData = async () => {
@@ -176,6 +181,7 @@ const handleViewOrder = async (orderId) => {
         setSelectedOrder(order);
         setOrderDetails({
             ...order,
+            photos: order.photos || [],
             services: order.services || [],
             products: order.products || []
         });
@@ -438,6 +444,22 @@ const handleViewOrder = async (orderId) => {
     
         await saveProduct(newProduct);
     };
+
+    // Function to handle new photo upload
+const handleImageUpload = (newImageUrl) => {
+    setOrderDetails(prevState => ({
+        ...prevState,
+        photos: [...prevState.photos, newImageUrl]
+    }));
+};
+
+// Function to handle photo removal
+const handlePhotoRemove = (photoUrl) => {
+    setOrderDetails(prevState => ({
+        ...prevState,
+        photos: prevState.photos.filter(photo => photo !== photoUrl)
+    }));
+};
       
     const formatDate = (date) => {
         if (!date) return ''; // Return empty string if date is null/undefined
@@ -455,6 +477,16 @@ const handleViewOrder = async (orderId) => {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
       };      
+
+      const openModal = (photoUrl) => {
+        setSelectedPhotoUrl(photoUrl);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedPhotoUrl('');
+    };
 
     return (
         <div className="container mx-auto p-4">
@@ -637,6 +669,55 @@ const handleViewOrder = async (orderId) => {
                             disabled={!editMode}
                         ></textarea>
                     </div>
+
+                    {!editMode && (
+    <div>
+        <h3 className="text-lg font-bold">Order Photos</h3>
+        <div className="flex flex-wrap gap-2 mt-2">
+            {orderDetails.photos.map((photoUrl, index) => (
+                <div 
+                key={index}
+                className="relative"
+                onClick={() => openModal(photoUrl)}
+                >
+                    <img
+                        src={photoUrl}
+                        alt={`Photos ${index + 1}`}
+                        className="w-32 h-32 object-cover border rounded"
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+)}
+
+                    <div>
+    {editMode && (
+        <div>
+            <ImageUpload onImageUpload={handleImageUpload} />
+            <div className="mt-4">
+                <h3 className="text-lg font-bold">Uploaded Photos</h3>
+                <div className="flex flex-wrap gap-2 mt-2">
+                    {orderDetails.photos.map((photoUrl, index) => (
+                        <div key={index} className="relative">
+                            <img
+                                src={photoUrl}
+                                alt={`Photos ${index + 1}`}
+                                className="w-32 h-32 object-cover border rounded"
+                            />
+                            <button
+                                className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+                                onClick={() => handlePhotoRemove(photoUrl)}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )}
+</div>
                 </div>
 
        {/* Order Services Table */}
@@ -825,7 +906,14 @@ const handleViewOrder = async (orderId) => {
             </form>
         </div>
     )}
+    {/* Modal for viewing enlarged photo */}
+    <Modal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                imageUrl={selectedPhotoUrl}
+            />
 </div>
+
     );
 }
 
