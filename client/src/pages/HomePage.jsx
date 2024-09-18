@@ -1,7 +1,4 @@
 import React, { useEffect, useState}  from 'react';
-import tonerImage from '../images/toner.png';
-import serumImage from '../images/serum.png';
-import sunscreenImage from '../images/sunscreen.png';
 import bannerImage from '../images/banner.png'; // Add the path to your banner image
 import supabase from '../config/supabaseClient';
 import ProductSlider from './components/ProductSlide';
@@ -89,30 +86,13 @@ const HomePage = () => {
   </div>
 </section>
 
-<div>
-  <ProductSlider />
-</div>
       {/* Products Section */}
-      <section className="mb-6">
-        <h3 className="text-lg sm:text-xl font-semibold uppercase mb-2">Our Products</h3>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <li className="border p-2 sm:p-3 md:p-4 rounded-lg shadow-md">
-            <img src={tonerImage} alt="toner" className="w-full h-auto mb-2" />
-            <h4 className="font-bold text-sm sm:text-base">Derm10 Solar Defense Toner 150ml</h4>
-            <p className="text-xs sm:text-sm">RM 199</p>
-          </li>
-          <li className="border p-2 sm:p-3 md:p-4 rounded-lg shadow-md">
-            <img src={serumImage} alt="serum" className="w-full h-auto mb-2" />
-            <h4 className="font-bold text-sm sm:text-base">Derm10 Solar Defense Serum 30ml</h4>
-            <p className="text-xs sm:text-sm">RM 259</p>
-          </li>
-          <li className="border p-2 sm:p-3 md:p-4 rounded-lg shadow-md">
-            <img src={sunscreenImage} alt="sunscreen" className="w-full h-auto mb-2" />
-            <h4 className="font-bold text-sm sm:text-base">Derm10 Solar Defense Sunscreen SPF50+++</h4>
-            <p className="text-xs sm:text-sm">RM 189</p>
-          </li>
-        </ul>
-      </section>
+<div className="mt-6 p-8 border border-gray-300 shadow-lg rounded-lg bg-pink-50">
+  <section className="container mx-auto">
+    <h3 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">Our Products</h3>
+    <ProductSlider />
+  </section>
+</div>
     </div>
   );
 };

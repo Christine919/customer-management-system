@@ -30,6 +30,7 @@ function ImageUpload({ onImageUpload, reset }) {
     }
   }  
 
+  // Call the reset function if reset prop is true
   useEffect(() => {
     if (reset) {
       setPreviewImages([]);
