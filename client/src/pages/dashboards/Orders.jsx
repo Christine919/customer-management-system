@@ -25,6 +25,7 @@ function OrderDashboard() {
     });
     const [servicesList, setServicesList] = useState([]);
     const [productsList, setProductsList] = useState([]);
+    const [originalOrderDetails, setOriginalOrderDetails] = useState(null);
 
     useEffect(() => {
         const loadInitialData = async () => {
@@ -169,24 +170,36 @@ const saveProduct = async (product) => {
     }
 };
 
-    const handleViewOrder = async (orderId) => {
-        try {
-            const order = await fetchOrderById(orderId);
-            setSelectedOrder(order);
-            setOrderDetails({
-                ...order,
-                services: order.services || [],
-                products: order.products || []
-            });
-        } catch (error) {
-            console.error('Error fetching order details:', error);
-        }
-    };
+const handleViewOrder = async (orderId) => {
+    try {
+        const order = await fetchOrderById(orderId);
+        setSelectedOrder(order);
+        setOrderDetails({
+            ...order,
+            services: order.services || [],
+            products: order.products || []
+        });
+        // Store the original order details
+        setOriginalOrderDetails({
+            ...order,
+            services: order.services || [],
+            products: order.products || []
+        });
+    } catch (error) {
+        console.error('Error fetching order details:', error);
+    }
+};
 
     const handleEditOrder = () => {
         setEditMode(true);
     };
 
+    const handleCancelEdit = () => {
+        // Reset the form by setting orderDetails back to its initial state
+        setOrderDetails(originalOrderDetails); // Assuming initialOrderDetails contains the original data
+        setEditMode(false); // Exit edit mode
+    };
+    
     const handleServiceChange = (index, e) => {
 
         console.log('Service Change Event:', e); // Add this line to inspect the event object
@@ -229,7 +242,6 @@ const saveProduct = async (product) => {
             services: updatedServices
         }));
     };
-    
     
     const handleProductChange = (index, e) => {
         console.log('Product Change Event:', e); // Add this line to inspect the event object
@@ -794,15 +806,22 @@ const saveProduct = async (product) => {
                 </div>
 
                 {editMode && (
-                    <div className="mt-4">
-                        <button
-                            type="submit"
-                            className="bg-purple-500 text-white px-3 py-1 rounded"
-                        >
-                            Save Order
-                        </button>
-                    </div>
-                )}
+    <div className="mt-4 flex space-x-4">
+        <button
+            type="submit"
+            className="bg-purple-500 text-white px-3 py-1 rounded"
+        >
+            Save Order
+        </button>
+
+        <button
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={handleCancelEdit}
+        >
+            Cancel Edit
+        </button>
+    </div>
+)}
             </form>
         </div>
     )}
