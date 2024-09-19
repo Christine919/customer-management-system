@@ -2,14 +2,17 @@ import React, { useEffect, useState}  from 'react';
 import bannerImage from '../images/banner.png'; // Add the path to your banner image
 import supabase from '../config/supabaseClient';
 import ProductSlider from './components/ProductSlide';
-import clay from "../images/clay.png"
+import claymask from "../images/claymask.png"
 import rose from "../images/rose.png"
 import oat from "../images/oat.png"
 import peppermint from "../images/peppermint.png"
+import Modal from './components/Modal';
 
 const HomePage = () => {
   const [ fetchError, setFetchError ] = useState(null);
   const [ services, setServices ] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhotoUrl, setSelectedPhotoUrl] = useState('');
 
   useEffect(() => {
     const fetchService = async () => {
@@ -34,6 +37,16 @@ const HomePage = () => {
    // Separate services into two categories
    const ourServices = services.filter(service => service.service_id >= 1 && service.service_id <= 8);
    const otherServices = services.filter(service => service.service_id >= 9 && service.service_id <= 11);
+
+   const openModal = (photoUrl) => {
+    setSelectedPhotoUrl(photoUrl);
+    setIsModalOpen(true);
+};
+
+const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPhotoUrl('');
+};
 
   return (
     <div className="frontend p-2 min-h-screen sm:p-4 md:p-6 lg:p-8">
@@ -93,28 +106,28 @@ const HomePage = () => {
 <div className="p-8 bg-gray-100 my-10">
   <h2 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">New Products</h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+    <div onClick={() => openModal(rose)} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
       <img
         src={rose}
         alt="Gallery Image1"
         className="w-full aspect-square object-cover"
       />
     </div>
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+    <div onClick={() => openModal(oat)} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
       <img
         src={oat}
         alt="Gallery Image2"
         className="w-full aspect-square object-cover"
       />
     </div>
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+    <div onClick={() => openModal(claymask)} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
       <img
-        src={clay}
+        src={claymask}
         alt="Gallery Image3"
         className="w-full aspect-square object-cover"
       />
     </div>
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+    <div onClick={() => openModal(peppermint)} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
       <img
         src={peppermint}
         alt="Gallery Image4"
@@ -123,6 +136,12 @@ const HomePage = () => {
     </div>
   </div>
 </div>
+
+<Modal
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    imageUrl={selectedPhotoUrl}
+                />
 
 
       {/* Products Section */}
