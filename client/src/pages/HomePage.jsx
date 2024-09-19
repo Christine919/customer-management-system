@@ -181,7 +181,7 @@ const closeModal = () => {
 
           {/* WhatsApp */}
           <SocialIcon 
-            url="https://shorturl.at/SvFrF" 
+            url="https://wa.link/l0ilua" 
             className="hover:opacity-80 transition-opacity duration-300" 
             target="_blank" 
             network="whatsapp" // Ensures correct icon
