@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import ImageUpload from '../components/ImageUpload';
+import Modal from '../components/Modal';
 
 const MySwal = withReactContent(Swal);
 
@@ -17,6 +18,8 @@ const ProductsList = () => {
         image: []
     });
     const [editProduct, setEditProduct] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPhotoUrl, setSelectedPhotoUrl] = useState('');
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -178,139 +181,158 @@ const ProductsList = () => {
             setNewProduct({ ...newProduct, image: Array.isArray(uploadedImages) ? uploadedImages : [uploadedImages] });
         }
     };
+
+    const openModal = (photoUrl) => {
+        setSelectedPhotoUrl(photoUrl);
+        setIsModalOpen(true);
+    };
+    
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedPhotoUrl('');
+    };
     
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Products List</h1>
-            <div className="p-4 bg-white shadow-md rounded-lg mb-6">
-                <h2 className="text-xl font-medium mb-2">{editProduct ? 'Edit Product' : 'Add Product'}</h2>
-                <form onSubmit={editProduct ? handleEditProduct : handleAddProduct}>
-                    <div className="flex items-end gap-4 mb-4">
-                        <div className="flex-1">
-                            <input
-                                type="text"
-                                placeholder="Product Name"
-                                value={editProduct ? editProduct.product_name : newProduct.product_name}
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    if (editProduct) {
-                                        setEditProduct({ ...editProduct, product_name: value });
-                                    } else {
-                                        setNewProduct({ ...newProduct, product_name: value });
-                                    }
-                                }}
-                                className="border border-gray-300 rounded-md p-2 w-full"
-                            />
-                        </div>
-                        <div className="flex-1">
-                            <input
-                                type="number"
-                                placeholder="Price"
-                                value={editProduct ? editProduct.product_price : newProduct.product_price}
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    if (editProduct) {
-                                        setEditProduct({ ...editProduct, product_price: value });
-                                    } else {
-                                        setNewProduct({ ...newProduct, product_price: value });
-                                    }
-                                }}
-                                className="border border-gray-300 rounded-md p-2 w-full"
-                            />
-                        </div>
-                        <div className="flex-1">
-                            <input
-                                type="number"
-                                placeholder="Stock"
-                                value={editProduct ? editProduct.stock : newProduct.stock}
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    if (editProduct) {
-                                        setEditProduct({ ...editProduct, stock: value });
-                                    } else {
-                                        setNewProduct({ ...newProduct, stock: value });
-                                    }
-                                }}
-                                className="border border-gray-300 rounded-md p-2 w-full"
-                            />
-                        </div>
-                        <div>
-                            <ImageUpload onImageUpload={handleImageUpload} />
-                        </div>
-                        <div>
-                            {editProduct ? (
-                                <button type="submit" className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
-                                    Update
-                                </button>
-                            ) : (
-                                <button type="submit" className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
-                                    Add
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </form>
+    <h1 className="text-2xl font-bold mb-4">Products List</h1>
+    <div className="p-4 bg-white shadow-md rounded-lg mb-6">
+        <h2 className="text-xl font-medium mb-2">{editProduct ? 'Edit Product' : 'Add Product'}</h2>
+        <form onSubmit={editProduct ? handleEditProduct : handleAddProduct}>
+            <div className="flex items-end gap-4 mb-4">
+                <div className="flex-1">
+                    <input
+                        type="text"
+                        placeholder="Product Name"
+                        value={editProduct ? editProduct.product_name : newProduct.product_name}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (editProduct) {
+                                setEditProduct({ ...editProduct, product_name: value });
+                            } else {
+                                setNewProduct({ ...newProduct, product_name: value });
+                            }
+                        }}
+                        className="border border-gray-300 rounded-md p-2 w-full"
+                    />
+                </div>
+                <div className="flex-1">
+                    <input
+                        type="number"
+                        placeholder="Price"
+                        value={editProduct ? editProduct.product_price : newProduct.product_price}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (editProduct) {
+                                setEditProduct({ ...editProduct, product_price: value });
+                            } else {
+                                setNewProduct({ ...newProduct, product_price: value });
+                            }
+                        }}
+                        className="border border-gray-300 rounded-md p-2 w-full"
+                    />
+                </div>
+                <div className="flex-1">
+                    <input
+                        type="number"
+                        placeholder="Stock"
+                        value={editProduct ? editProduct.stock : newProduct.stock}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (editProduct) {
+                                setEditProduct({ ...editProduct, stock: value });
+                            } else {
+                                setNewProduct({ ...newProduct, stock: value });
+                            }
+                        }}
+                        className="border border-gray-300 rounded-md p-2 w-full"
+                    />
+                </div>
             </div>
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-300 shadow-md">
-                    <thead className="bg-gray-200 text-sm leading-normal rounded-lg">
-                        <tr className="bg-purple-300 uppercase text-left">
-                            <th className="py-3 px-4 text-left">ID</th>
-                            <th className="py-3 px-4 text-left">Name</th>
-                            <th className="py-3 px-4 text-left">Price</th>
-                            <th className="py-3 px-4 text-left">Stock</th>
-                            <th className="py-3 px-4 text-left">Image</th>
-                            <th className="py-3 px-4 text-left">Actions</th>
+            <div className="mb-4">
+                <ImageUpload onImageUpload={handleImageUpload} />
+            </div>
+            <div>
+                {editProduct ? (
+                    <button type="submit" className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
+                        Update
+                    </button>
+                ) : (
+                    <button type="submit" className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
+                        Add
+                    </button>
+                )}
+            </div>
+        </form>
+    </div>
+    <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300 shadow-md">
+            <thead className="bg-gray-200 text-sm leading-normal rounded-lg">
+                <tr className="bg-purple-300 uppercase text-left">
+                    <th className="py-3 px-4 text-left">ID</th>
+                    <th className="py-3 px-4 text-left">Name</th>
+                    <th className="py-3 px-4 text-left">Price</th>
+                    <th className="py-3 px-4 text-left">Stock</th>
+                    <th className="py-3 px-4 text-left">Image</th>
+                    <th className="py-3 px-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody className="text-gray-700 text-sm">
+                {products.length > 0 ? (
+                    products.map(product => (
+                        <tr key={product.product_id} className="border-b border-gray-200">
+                            <td className="py-3 px-4">{product.product_id}</td>
+                            <td className="py-3 px-4">{product.product_name}</td>
+                            <td className="py-3 px-4">RM {product.product_price.toFixed(2)}</td>
+                            <td className="py-3 px-4">{product.stock}</td>
+                            <td className="py-3 px-4">
+                                {Array.isArray(product.image) && product.image.length > 0 ? (
+                                    product.image.map((imgUrl, index) => (
+                                        <div onClick={() => openModal(imgUrl)}>
+                                            <img
+                                            key={index}
+                                            src={imgUrl}
+                                            alt={`${product.product_name} images ${index}`}
+                                            className="w-16 h-16 object-cover"
+                                        />
+                                        </div>
+                                        
+                                    ))
+                                ) : (
+                                    <span>No image</span>
+                                )}
+                            </td>
+                            <td className="py-3 px-4 flex space-x-2">
+                                <button
+                                    onClick={() => setEditProduct(product)}
+                                    className="bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => handleDeleteProduct(product.product_id)}
+                                    className="bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-600"
+                                >
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody className="text-gray-700 text-sm">
-                        {products.length > 0 ? (
-                            products.map(product => (
-                                <tr key={product.product_id} className="border-b border-gray-200">
-                                    <td className="py-3 px-4">{product.product_id}</td>
-                                    <td className="py-3 px-4">{product.product_name}</td>
-                                    <td className="py-3 px-4">RM {product.product_price.toFixed(2)}</td>
-                                    <td className="py-3 px-4">{product.stock}</td>
-                                    <td className="py-3 px-4">
-    {Array.isArray(product.image) && product.image.length > 0 ? (
-        product.image.map((imgUrl, index) => (
-            <img
-                key={index}
-                src={imgUrl}
-                alt={`${product.product_name} images ${index}`}
-                className="w-16 h-16 object-cover"
-            />
-        ))
-    ) : (
-        <span>No image</span>
-    )}
-</td>
-                                    <td className="py-3 px-4 flex space-x-2">
-                                        <button
-                                            onClick={() => setEditProduct(product)}
-                                            className="bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() => handleDeleteProduct(product.product_id)}
-                                            className="bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-600"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="6" className="py-3 px-4 text-center">No products found</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan="6" className="py-3 px-4 text-center">No products found</td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+        <Modal
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    imageUrl={selectedPhotoUrl}
+                />
+    </div>
+</div>
+
     );
 };
 
