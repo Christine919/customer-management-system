@@ -2,6 +2,10 @@ import React, { useEffect, useState}  from 'react';
 import bannerImage from '../images/banner.png'; // Add the path to your banner image
 import supabase from '../config/supabaseClient';
 import ProductSlider from './components/ProductSlide';
+import clay from "../images/clay.png"
+import rose from "../images/rose.png"
+import oat from "../images/oat.png"
+import peppermint from "../images/peppermint.png"
 
 const HomePage = () => {
   const [ fetchError, setFetchError ] = useState(null);
@@ -85,6 +89,41 @@ const HomePage = () => {
     </ul>
   </div>
 </section>
+
+<div className="p-8 bg-gray-100 my-10">
+  <h2 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">New Products</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+      <img
+        src={rose}
+        alt="Gallery Image1"
+        className="w-full aspect-square object-cover"
+      />
+    </div>
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+      <img
+        src={oat}
+        alt="Gallery Image2"
+        className="w-full aspect-square object-cover"
+      />
+    </div>
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+      <img
+        src={clay}
+        alt="Gallery Image3"
+        className="w-full aspect-square object-cover"
+      />
+    </div>
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
+      <img
+        src={peppermint}
+        alt="Gallery Image4"
+        className="w-full aspect-square object-cover"
+      />
+    </div>
+  </div>
+</div>
+
 
       {/* Products Section */}
 <div className="mt-6 p-8 border border-gray-300 shadow-lg rounded-lg bg-pink-50">
