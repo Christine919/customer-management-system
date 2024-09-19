@@ -1,5 +1,5 @@
 import React, { useEffect, useState}  from 'react';
-import bannerImage from '../images/banner.png'; // Add the path to your banner image
+import bannerImage from '../images/banner.png'; 
 import supabase from '../config/supabaseClient';
 import ProductSlider from './components/ProductSlide';
 import claymask from "../images/claymask.png"
@@ -7,6 +7,7 @@ import rose from "../images/rose.png"
 import oat from "../images/oat.png"
 import peppermint from "../images/peppermint.png"
 import Modal from './components/Modal';
+import { SocialIcon } from 'react-social-icons'
 
 const HomePage = () => {
   const [ fetchError, setFetchError ] = useState(null);
@@ -151,6 +152,96 @@ const closeModal = () => {
     <ProductSlider />
   </section>
 </div>
+
+<div>
+      {/* Contact Me Section */}
+      <section className="py-10 bg-white">
+        <h2 className="text-center text-4xl md:text-2xl font-bold text-pink-900 mb-6">
+          Contact Me for Appointments or Skincare Consultations
+        </h2>
+
+        
+        <div className="flex justify-center">
+        <div className="w-full max-w-md bg-gray-100 p-6 rounded-lg shadow-lg">
+        
+        <div className="flex justify-center space-x-6">
+          {/* Instagram */}
+          <SocialIcon 
+            url="https://www.instagram.com/_aesthetics_23/?hl=ha-ng" 
+            className="hover:opacity-80 transition-opacity duration-300" 
+            target="_blank" 
+          />
+
+          {/* Facebook */}
+          <SocialIcon 
+            url="https://www.facebook.com/aesthetics250722/" 
+            className="hover:opacity-80 transition-opacity duration-300" 
+            target="_blank" 
+          />
+
+          {/* WhatsApp */}
+          <SocialIcon 
+            url="https://shorturl.at/SvFrF" 
+            className="hover:opacity-80 transition-opacity duration-300" 
+            target="_blank" 
+            network="whatsapp" // Ensures correct icon
+          />
+        </div>
+
+        <h2 className="text-center text-2xl md:text-4xl font-bold text-pink-900 my-6">Business Hours</h2>
+
+          <ul className="text-gray-700">
+          <li className="flex justify-between py-2 border-b">
+              <span>Monday</span>
+              <span>11 am – 7 pm</span>
+            </li>
+            <li className="flex justify-between py-2 border-b">
+              <span>Tuesday</span>
+              <span>11 am – 7 pm</span>
+            </li>
+            <li className="flex justify-between py-2  border-b">
+              <span>Wednesday</span>
+              <span>11 am – 7 pm</span>
+            </li>
+            <li className="flex justify-between py-2 border-b">
+              <span>Thursday</span>
+              <span>Closed</span>
+            </li>
+            <li className="flex justify-between py-2 border-b">
+              <span>Friday</span>
+              <span>10 am – 6 pm</span>
+            </li>
+            <li className="flex justify-between py-2 border-b">
+              <span>Saturday</span>
+              <span>10 am – 7 pm</span>
+            </li>
+            <li className="flex justify-between py-2">
+              <span>Sunday</span>
+              <span>10 am – 7 pm</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </section>
+    </div>
+      {/* Location Section */}
+      <section className="py-10 bg-gray-100">
+        <h2 className="text-3xl font-bold text-center text-pink-900 mb-10">Our Location</h2>
+        <div >
+          {/* Google Map */}
+          <div className="w-full h-64 md:h-auto px-8">
+            <iframe
+              title="Google Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.8939540409683!2d102.26048100000001!3d2.1938326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xab25e4d06c8ac419%3A0x1960394ab38b48a6!2sAesthetics%2023%20Melaka!5e0!3m2!1sen!2smy!4v1726753352713!5m2!1sen!2smy"
+              width="100%"
+              height="300"
+              className="rounded-lg shadow-lg"
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
+          </div>
+          </div>
+      </section>
     </div>
   );
 };
