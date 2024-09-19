@@ -54,4 +54,6 @@ body {
   padding: 10px 0;
 }
 
-
+.custom-height {
+  height: 400px; 
+}
