@@ -235,7 +235,7 @@ const ProductsList = () => {
                                 className="border border-gray-300 rounded-md p-2 w-full"
                             />
                         </div>
-                        <div >
+                        <div>
                             <ImageUpload onImageUpload={handleImageUpload} />
                         </div>
                         <div>
