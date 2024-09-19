@@ -199,66 +199,74 @@ const ProductsList = () => {
     <div className="p-4 bg-white shadow-md rounded-lg mb-6">
         <h2 className="text-xl font-medium mb-2">{editProduct ? 'Edit Product' : 'Add Product'}</h2>
         <form onSubmit={editProduct ? handleEditProduct : handleAddProduct}>
-            <div className="flex items-end gap-4 mb-4">
-                <div className="flex-1">
-                    <input
-                        type="text"
-                        placeholder="Product Name"
-                        value={editProduct ? editProduct.product_name : newProduct.product_name}
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            if (editProduct) {
-                                setEditProduct({ ...editProduct, product_name: value });
-                            } else {
-                                setNewProduct({ ...newProduct, product_name: value });
-                            }
-                        }}
-                        className="border border-gray-300 rounded-md p-2 w-full"
-                    />
-                </div>
-                <div className="flex-1">
-                    <input
-                        type="number"
-                        placeholder="Price"
-                        value={editProduct ? editProduct.product_price : newProduct.product_price}
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            if (editProduct) {
-                                setEditProduct({ ...editProduct, product_price: value });
-                            } else {
-                                setNewProduct({ ...newProduct, product_price: value });
-                            }
-                        }}
-                        className="border border-gray-300 rounded-md p-2 w-full"
-                    />
-                </div>
-                <div className="flex-1">
-                    <input
-                        type="number"
-                        placeholder="Stock"
-                        value={editProduct ? editProduct.stock : newProduct.stock}
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            if (editProduct) {
-                                setEditProduct({ ...editProduct, stock: value });
-                            } else {
-                                setNewProduct({ ...newProduct, stock: value });
-                            }
-                        }}
-                        className="border border-gray-300 rounded-md p-2 w-full"
-                    />
-                </div>
-            </div>
+        <div className="mb-4">
+    {/* First Row for Product Name */}
+    <div className="flex items-end gap-4 mb-2">
+        <div className="flex-1">
+            <input
+                type="text"
+                placeholder="Product Name"
+                value={editProduct ? editProduct.product_name : newProduct.product_name}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    if (editProduct) {
+                        setEditProduct({ ...editProduct, product_name: value });
+                    } else {
+                        setNewProduct({ ...newProduct, product_name: value });
+                    }
+                }}
+                className="border border-gray-300 rounded-md p-2 w-full"
+            />
+        </div>
+    </div>
+    
+    {/* Second Row for Price and Stock */}
+    <div className="flex items-end gap-4">
+        <div className="flex-1">
+            <input
+                type="number"
+                placeholder="Price"
+                value={editProduct ? editProduct.product_price : newProduct.product_price}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    if (editProduct) {
+                        setEditProduct({ ...editProduct, product_price: value });
+                    } else {
+                        setNewProduct({ ...newProduct, product_price: value });
+                    }
+                }}
+                className="border border-gray-300 rounded-md p-2 w-full"
+            />
+        </div>
+        <div className="flex-1">
+            <input
+                type="number"
+                placeholder="Stock"
+                value={editProduct ? editProduct.stock : newProduct.stock}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    if (editProduct) {
+                        setEditProduct({ ...editProduct, stock: value });
+                    } else {
+                        setNewProduct({ ...newProduct, stock: value });
+                    }
+                }}
+                className="border border-gray-300 rounded-md p-2 w-full"
+            />
+        </div>
+    </div>
+</div>
+
             <div className="mb-4">
                 <ImageUpload onImageUpload={handleImageUpload} />
             </div>
             <div>
                 {editProduct ? (
-                    <button type="submit" className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
+                    <button type="submit" className="w-full  bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
                         Update
                     </button>
                 ) : (
-                    <button type="submit" className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
+                    <button type="submit" className="w-full bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
                         Add
                     </button>
                 )}
