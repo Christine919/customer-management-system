@@ -3,6 +3,7 @@ import supabase from '../../config/supabaseClient';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const MySwal = withReactContent(Swal);
 
@@ -289,6 +290,7 @@ const Customers = () => {
                 <th className="py-3 px-4">Payment Method</th>
                 <th className="py-3 px-4">Paid Date</th>
                 <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4">Action</th>
               </tr>
             </thead>
             <tbody className="text-gray-700 text-sm">
@@ -299,9 +301,14 @@ const Customers = () => {
                   <td className="py-3 px-4">{order.payment_method}</td>
                   <td className="py-3 px-4">{formatDate(order.paid_date)}</td>
                   <td className="py-3 px-4">{order.order_status}</td>
+                  <td className="py-3 px-4">
+                                <Link to={`/orders/${order.order_id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    View Order
+                                </Link>
+                            </td>
                 </tr>
               ))}
-            </tbody>
+            </tbody>  
           </table>
         </div>
       ) : (

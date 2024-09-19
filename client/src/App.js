@@ -14,6 +14,7 @@ import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
+import ViewOrder from './pages/components/ViewOrder.jsx';
 import './index.css';
 
 function MainLayout() {
@@ -39,6 +40,7 @@ function MainLayout() {
           <Route path="services" element={<ServicesList />} />
           <Route path="appointments" element={<AppointmentCalendar />} />
         </Route>
+        <Route path="/orders/:order_id" element={<ViewOrder />} />
       </Routes>
       {!isBackendRoute && <Footer />}
     </>
