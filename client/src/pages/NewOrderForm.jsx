@@ -138,11 +138,6 @@ const NewOrderForm = () => {
         
         if (error) {
           console.error("Error fetching customer details:", error);
-          MySwal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `No customer found with this phone number.`,
-          });
         }
         if (data) {
           setFormData(prevFormData => ({
