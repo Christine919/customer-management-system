@@ -50,12 +50,12 @@ const Sidebar = () => {
           <span className="text-xs md:text-sm lg:text-base">Calendar</span>
         </Link>
       </li>
-      <li className={location.pathname === '/sales' ? 'text-pink-200 font-semibold' : 'text-white'}>
+      {/* <li className={location.pathname === '/sales' ? 'text-pink-200 font-semibold' : 'text-white'}>
         <Link to="sales" className="flex flex-col items-center hover:text-pink-200">
           <ChartBarIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
           <span className="text-xs md:text-sm lg:text-base">Sales</span>
         </Link>
-      </li>
+      </li> */}
       {/* <li className={location.pathname === '/e-invoice' ? 'text-pink-200 font-semibold' : 'text-white'}>
         <Link to="e-invoice" className="flex flex-col items-center hover:text-pink-200">
           <ClipboardListIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />

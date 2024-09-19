@@ -12,6 +12,7 @@ import OrderDashboard from './pages/dashboards/Orders.jsx';
 import ProductsList from './pages/dashboards/ProductsList.jsx';
 import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
+import Sales from './pages/dashboards/Sales.jsx';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
 import ViewOrder from './pages/components/ViewOrder.jsx';
@@ -39,6 +40,7 @@ function MainLayout() {
           <Route path="products" element={<ProductsList />} />
           <Route path="services" element={<ServicesList />} />
           <Route path="appointments" element={<AppointmentCalendar />} />
+          <Route path="sales" element={<Sales />} />
         </Route>
         <Route path="/orders/:order_id" element={<ViewOrder />} />
       </Routes>
