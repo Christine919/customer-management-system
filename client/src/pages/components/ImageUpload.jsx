@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { v4 as uuidv4 } from 'uuid';
 
-const CDNURL = "https://kqjwsihcwmhroknelgro.supabase.co/storage/v1/object/public/images/";
+const CDNURL = "https://lahsohphsztgbngssrwi.supabase.co/storage/v1/object/public/images/";
 
 function ImageUpload({ onImageUpload, reset }) {
   const [previewImages, setPreviewImages] = useState([]);
