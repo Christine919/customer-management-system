@@ -17,6 +17,8 @@
 
 The **Customer Management System** is a comprehensive web application designed to streamline the management of customers, orders, appointments, and more for businesses in the beauty industry. Built with React for the frontend and Supabase for the backend, this system offers a seamless and responsive user experience across all devices.
 
+Additionally, a company details page is included in the CMS, allowing clients to share important business information with their users. To ensure security, the system is locked and requires login credentials. You can log in with admin@gmail.com and password admin1234 to access the details page.
+
 - **Customer Management**: Add, view, edit, and delete customer information.
 - **Order Management**: Create and manage orders, including services and products.
 - **Appointment Scheduling**: Schedule and view appointments with an interactive calendar.
