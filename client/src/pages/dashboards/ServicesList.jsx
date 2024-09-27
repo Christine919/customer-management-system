@@ -193,38 +193,49 @@ const handleDeleteService = async (service_id) => {
           </div>
           <div>
             {editService ? (
-              <button onClick={handleEditService} className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
-                Update
-              </button>
+             <>
+             <button
+               onClick={handleEditService}
+               className="bg-yellow-400 py-2 px-6 mr-2 rounded-md hover:bg-pink-600"
+             >
+               Update
+             </button>
+             <button
+               onClick={() => setEditService(null)}
+               className="bg-gray-300 py-2 px-6 rounded-md hover:bg-gray-400"
+             >
+               Cancel
+             </button>
+           </>
             ) : (
-              <button onClick={handleAddService} className="bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
+              <button onClick={handleAddService} className="bg-yellow-400 py-2 px-8 rounded-md hover:bg-pink-600">
                 Add
               </button>
             )}
           </div>
         </div>
       </div>
-      <table className="min-w-full bg-white border border-gray-300 rounded-lg">
-        <thead className="bg-purple-300 text-white-600 uppercase text-sm leading-normal">
-          <tr className="border-b">
-            <th className="p-2 text-left">ID</th>
-            <th className="p-2 text-left">Name</th>
-            <th className="p-2 text-left">Price</th>
-            <th className="p-2 text-left">Actions</th>
+      <table className="min-w-full bg-white border border-gray-300 shadow-md">
+        <thead className="bg-gray-200 uppercase text-sm leading-normal">
+          <tr className="uppercase text-left">
+            <th className="py-3 px-4">ID</th>
+            <th className="py-3 px-4">Name</th>
+            <th className="py-3 px-4">Price</th>
+            <th className="py-3 px-4">Actions</th>
           </tr>
         </thead>
-        <tbody className="text-white-700 text-sm font-light">
+        <tbody className="text-gray-700 text-sm">
           {services.length > 0 ? (
             services.map(service => (
-              <tr key={service.service_id} className="border-b">
-                <td className="p-2">{service.service_id}</td>
-                <td className="p-2">{service.service_name}</td>
-                <td className="p-2">${service.service_price}</td>
-                <td className="p-2">
-                  <button onClick={() => setEditService(service)} className="bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600 mr-2">
+              <tr key={service.service_id} className="border-b border-gray-200">
+                <td className="py-3 px-4">{service.service_id}</td>
+                <td className="py-3 px-4">{service.service_name}</td>
+                <td className="py-3 px-4">${service.service_price}</td>
+                <td className="py-3 px-4">
+                  <button onClick={() => setEditService(service)} className="text-blue-500 font-semibold px-3 py-1 hover:text-blue-700">
                     Edit
                   </button>
-                  <button onClick={() => handleDeleteService(service.service_id)} className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">
+                  <button onClick={() => handleDeleteService(service.service_id)} className="text-red-500 font-semibold px-3 py-1 hover:text-red-600">
                     Delete
                   </button>
                 </td>

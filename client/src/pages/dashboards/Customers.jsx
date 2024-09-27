@@ -200,12 +200,12 @@ const Customers = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4 text-white-800">Customers</h2>
+      <h2 className="text-2xl font-bold mb-4 text-white-800">Clients</h2>
 
       {!viewCustomer && !editCustomer && (
         <div className="overflow-x-auto rounded-lg">
           <table className="min-w-full bg-white border border-gray-300 shadow-md">
-            <thead className="bg-purple-300 text-left text-white-500 uppercase text-sm leading-normal">
+            <thead className="bg-gray-200 text-left text-white-500 uppercase text-sm leading-normal">
               <tr>
                 <th className="py-3 px-4">ID</th>
                 <th className="py-3 px-4">First Name</th>
@@ -223,19 +223,19 @@ const Customers = () => {
                   <td className="py-3 px-4 text-left whitespace-nowrap">{formatDate(customer.date_of_birth)}</td>
                   <td className="py-3 px-4 text-left whitespace-nowrap">
                     <button
-                      className="bg-pink-500 text-white px-3 py-1 rounded-md hover:bg-pink-600 mr-2"
+                      className="text-blue-500 font-semibold px-3 py-1 hover:text-blue-700"
                       onClick={() => handleView(customer.user_id)}
                     >
                       View
                     </button>
                     <button
-                      className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 mr-2"
+                      className="text-yellow-500 font-semibold px-3 py- hover:text-yellow-700"
                       onClick={() => handleEditClick(customer)}
                     >
                       Edit
                     </button>
                     <button
-                      className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                      className="text-red-500 font-semibold px-3 py-1 hover:text-red-600"
                       onClick={() => handleDeleteCustomer(customer.user_id)}
                     >
                       Delete
@@ -251,7 +251,7 @@ const Customers = () => {
       {/* View Customer Details */}
 {viewCustomer && (
   <div className="mt-6 p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">
-    <h3 className="text-2xl font-bold mb-6 border-b border-gray-200 pb-2">Customer Details</h3>
+    <h3 className="text-2xl font-bold mb-6 border-b border-gray-200 pb-2">Details</h3>
     
     {/* Customer Details */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

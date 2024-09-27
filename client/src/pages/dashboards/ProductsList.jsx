@@ -142,6 +142,10 @@ const ProductsList = () => {
         }
     };
     
+    const handleCancelEdit = () => {
+        setEditProduct(null); // Exit edit mode without saving
+        setNewProduct({ product_name: '', product_price: '', stock: '' }); // Reset form inputs
+    };
 
     const handleDeleteProduct = async (product_id) => {
         MySwal.fire({
@@ -197,7 +201,23 @@ const ProductsList = () => {
         <div className="container mx-auto p-4">
     <h1 className="text-2xl font-bold mb-4">Products List</h1>
     <div className="p-4 bg-white shadow-md rounded-lg mb-6">
-        <h2 className="text-xl font-medium mb-2">{editProduct ? 'Edit Product' : 'Add Product'}</h2>
+    <div className='mb-4'>
+    <h2 className="text-xl font-medium mb-2">{editProduct ? 'Edit Product' : 'Add Product'}</h2>
+               {editProduct ? (
+                        <div className="flex space-x-4">
+                            <button type="submit" className="bg-yellow-400 py-1 px-6 rounded-md hover:bg-pink-600">
+                                Update
+                            </button>
+                            <button type="button" className="bg-gray-400 py-1 px-6 rounded-md hover:bg-gray-500" onClick={handleCancelEdit}>
+                                Cancel
+                            </button>
+                        </div>
+                    ) : (
+                        <button type="submit" className="bg-yellow-400 py-1 px-8 rounded-md hover:bg-pink-600">
+                            Add
+                        </button>
+                    )}
+            </div>
         <form onSubmit={editProduct ? handleEditProduct : handleAddProduct}>
         <div className="mb-4">
     {/* First Row for Product Name */}
@@ -260,29 +280,19 @@ const ProductsList = () => {
             <div className="mb-4">
                 <ImageUpload onImageUpload={handleImageUpload} />
             </div>
-            <div>
-                {editProduct ? (
-                    <button type="submit" className="w-full  bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
-                        Update
-                    </button>
-                ) : (
-                    <button type="submit" className="w-full bg-purple-500 text-white py-1 px-3 rounded-md hover:bg-purple-600">
-                        Add
-                    </button>
-                )}
-            </div>
+          
         </form>
     </div>
     <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 shadow-md">
             <thead className="bg-gray-200 text-sm leading-normal rounded-lg">
-                <tr className="bg-purple-300 uppercase text-left">
-                    <th className="py-3 px-4 text-left">ID</th>
-                    <th className="py-3 px-4 text-left">Name</th>
-                    <th className="py-3 px-4 text-left">Price</th>
-                    <th className="py-3 px-4 text-left">Stock</th>
-                    <th className="py-3 px-4 text-left">Image</th>
-                    <th className="py-3 px-4 text-left">Actions</th>
+                <tr className="uppercase text-left">
+                    <th className="py-3 px-4 ">ID</th>
+                    <th className="py-3 px-4 ">Name</th>
+                    <th className="py-3 px-4 ">Price</th>
+                    <th className="py-3 px-4 ">Stock</th>
+                    <th className="py-3 px-4 ">Image</th>
+                    <th className="py-3 px-4 ">Actions</th>
                 </tr>
             </thead>
             <tbody className="text-gray-700 text-sm">
@@ -313,13 +323,13 @@ const ProductsList = () => {
                             <td className="py-3 px-4 flex space-x-2">
                                 <button
                                     onClick={() => setEditProduct(product)}
-                                    className="bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600"
+                                    className="text-blue-500 font-semibold px-3 py-1 hover:text-blue-700"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => handleDeleteProduct(product.product_id)}
-                                    className="bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-600"
+                                    className="text-red-500 font-semibold px-3 py-1 hover:text-red-600"
                                 >
                                     Delete
                                 </button>

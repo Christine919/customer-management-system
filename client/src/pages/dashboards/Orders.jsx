@@ -513,12 +513,12 @@ const handlePhotoRemove = (photoUrl) => {
 
     return (
         <div className="container mx-auto p-4">
-    <h1 className="text-2xl font-bold mb-4">Order Dashboard</h1>
+    <h1 className="text-2xl font-bold mb-4">Orders</h1>
     
     {!selectedOrder ? (
           <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full bg-white border border-gray-300 shadow-md">
-            <thead className="bg-purple-300 text-balck text-left uppercase text-sm leading-normal">
+            <thead className="bg-gray-200 text-left uppercase text-sm leading-normal">
                 <tr >
                     <th className="py-3 px-4">Order ID</th>
                     <th className="py-3 px-4">Created Date</th>
@@ -542,13 +542,13 @@ const handlePhotoRemove = (photoUrl) => {
                         <td className="py-3 px-4 text-left whitespace-nowrap">{order.order_status}</td>
                         <td className="py-3 px-4 text-left whitespace-nowrap">
                             <button
-                                className="bg-pink-500 text-white px-3 py-1 rounded-md hover:bg-pink-600 mr-2"
+                                className="text-blue-500 font-semibold px-3 py-1 hover:text-blue-70"
                                 onClick={() => handleViewOrder(order.order_id)}
                             >
                                 View
                             </button>
                             <button
-                                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                                className="text-red-500 font-semibold px-3 py-1 hover:text-red-600"
                                 onClick={() => handleDeleteOrder(order.order_id)}
                             >
                                 Delete
@@ -562,7 +562,7 @@ const handlePhotoRemove = (photoUrl) => {
     ) : (
         <div>
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Order Details</h2>
+                <h2 className="text-xl font-bold">Details</h2>
                 <div>
                     <button
                         className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 mr-2"
@@ -574,7 +574,7 @@ const handlePhotoRemove = (photoUrl) => {
                         className="bg-gray-500 text-white px-3 py-1 rounded  hover:bg-gray-600 mr-2"
                         onClick={() => setSelectedOrder(null)}
                     >
-                        Back to Order List
+                        Back
                     </button>
                 </div>
             </div>
@@ -806,7 +806,7 @@ const handlePhotoRemove = (photoUrl) => {
                                         {editMode && (
                                             <button
                                                 type="button"
-                                                className="bg-red-500 text-white px-3 py-1 rounded"
+                                                className="text-red-500  hover:text-red-600 px-3 py-1"
                                                 onClick={() => handleDeleteOrderService(selectedOrder.order_id, service.order_service_id)}
                                             >
                                                 Remove
@@ -896,7 +896,7 @@ const handlePhotoRemove = (photoUrl) => {
                                         {editMode && (
                                             <button
                                                 type="button"
-                                                className="bg-red-500 text-white px-3 py-1 rounded"
+                                                className="text-red-500  hover:text-red-600 px-3 py-1"
                                                 onClick={() => handleDeleteOrderProduct(selectedOrder.order_id, product.order_product_id)}
                                             >
                                                 Remove
@@ -915,14 +915,14 @@ const handlePhotoRemove = (photoUrl) => {
             type="submit"
             className="bg-purple-500 text-white px-3 py-1 rounded"
         >
-            Save Order
+            Save
         </button>
 
         <button
             className="bg-red-500 text-white px-3 py-1 rounded"
             onClick={handleCancelEdit}
         >
-            Cancel Edit
+            Cancel
         </button>
     </div>
 )}
