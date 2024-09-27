@@ -1,80 +1,124 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation,} from 'react-router-dom';
 import { HomeIcon, UserIcon, ClipboardListIcon, ShoppingBagIcon, CalendarIcon, ChartBarIcon, LogoutIcon } from '@heroicons/react/outline';
 import supabase from '../../config/supabaseClient';
 
 const Sidebar = () => {
   const location = useLocation();
+  const [selected, setSelected] = useState(location.pathname)
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     window.location.href = '/login'; // Redirect to login after logging out
 };
 
+const handleSelection = (path) => {
+  setSelected(path);
+};
+
   return (
-    <div className="flex flex-col p-2 md:p-3 h-screen shadow-lg w-30 lg:w-24 xl:w-28 transition-width duration-300 bg-gradient-to-b from-pink-500 to-purple-800">
-    <div className="flex flex-col items-center mb-6">
-      <Link to="/" className="flex flex-col items-center text-white hover:text-pink-200">
-      <h2 className="text-xs md:text-sm lg:text-base font-serif">Aesthetics23</h2>
-        <HomeIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
+    <div className="flex flex-col p-4 h-screen w-64 ">
+    <div className="flex items-center mb-12 p-2 ">
+      <Link to="/" className="flex flex-col items-center text-white hover:text-pink-200 mt-8">
+      <HomeIcon className="w-7 h-7 text-black" />
+      <h2 className="ml-2 text-lg font-semibold text-black">Aesthetics23</h2>
       </Link>
     </div>
-    <ul className="space-y-6">
-      <li className={location.pathname === '/customers' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="customers" className="flex flex-col items-center hover:text-pink-200">
-          <UserIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Clients</span>
+    <ul className="space-y-4">
+    <li
+          className={`${
+            selected === 'customers' ? 'bg-[#f799a354] rounded-r-lg' : 'text-black'
+          }`}
+        >
+         <Link
+            to="customers"
+            className="flex items-center p-2 rounded-r-lg ml-4"
+            onClick={() => handleSelection('customers')}
+          >
+          <UserIcon className="w-6 h-6" />
+          <span className="ml-4">Clients</span>
         </Link>
       </li>
-      <li className={location.pathname === '/orders' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="orders" className="flex flex-col items-center hover:text-pink-200">
-          <ClipboardListIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Orders</span>
+      <li
+          className={`${
+            selected === 'orders' ? 'bg-[#f799a354] rounded-r-lg'  : 'text-black'
+          }`}
+        >
+          <Link
+            to="orders"
+            className="flex items-center p-2 rounded-r-lg  ml-4"
+            onClick={() => handleSelection('orders')}
+          >
+          <ClipboardListIcon className="w-6 h-6" />
+          <span className="ml-4">Orders</span>
         </Link>
       </li>
-      <li className={location.pathname === '/products' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="products" className="flex flex-col items-center hover:text-pink-200">
-          <ShoppingBagIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Products</span>
+      <li
+          className={`${
+            selected === 'products' ? 'bg-[#f799a354]  rounded-r-lg' : 'text-black'
+          }`}
+        >
+          <Link
+            to="products"
+            className="flex items-center p-2 rounded-r-lg  ml-4"
+            onClick={() => handleSelection('products')}
+          >
+          <ShoppingBagIcon className="w-6 h-6" />
+          <span className="ml-4">Products</span>
         </Link>
       </li>
-      <li className={location.pathname === '/services' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="services" className="flex flex-col items-center hover:text-pink-200">
-          <ClipboardListIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Services</span>
+      <li
+          className={`${
+            selected === 'services' ? 'bg-[#f799a354]  rounded-r-lg' : 'text-black'
+          }`}
+        >
+          <Link
+            to="services"
+            className="flex items-center p-2 rounded-r-lg  ml-4"
+            onClick={() => handleSelection('services')}
+          >
+          <ClipboardListIcon className="w-6 h-6" />
+          <span className="ml-4">Services</span>
         </Link>
       </li>
-      <li className={location.pathname === '/appointments' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="appointments" className="flex flex-col items-center hover:text-pink-200">
-          <CalendarIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Calendar</span>
+      <li
+          className={`${
+            selected === 'appointments' ? 'bg-[#f799a354]  rounded-r-lg ' : 'text-black'
+          }`}
+        >
+          <Link
+            to="appointments"
+            className="flex items-center p-2 rounded-r-lg  ml-4"
+            onClick={() => handleSelection('appointments')}
+          >
+          <CalendarIcon className="w-6 h-6" />
+          <span className="ml-4">Calendar</span>
         </Link>
       </li>
-      {/* <li className={location.pathname === '/sales' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="sales" className="flex flex-col items-center hover:text-pink-200">
-          <ChartBarIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Sales</span>
+      {/* <li className={location.pathname === '/sales' ? 'bg-pink-100 rounded-r-lg' : 'text-white'}>
+        <Link to="sales" className="flex items-center p-2 text-black hover:bg-pink-200 rounded-r-lg">
+          <ChartBarIcon className="w-6 h-6" />
+          <span className="ml-4">Sales</span>
         </Link>
       </li> */}
-      {/* <li className={location.pathname === '/e-invoice' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="e-invoice" className="flex flex-col items-center hover:text-pink-200">
-          <ClipboardListIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">E-invoice</span>
+      {/* <li className={location.pathname === '/e-invoice' ? 'bg-pink-100 rounded-r-lg' : 'text-white'}>
+        <Link to="e-invoice" className="flex items-center p-2 text-black hover:bg-pink-200 rounded-r-lg">
+          <ClipboardListIcon className="w-6 h-6" />
+          <span className="ml-4">E-invoice</span>
         </Link>
       </li> */}
-      {/* <li className={location.pathname === '/settings' ? 'text-pink-200 font-semibold' : 'text-white'}>
-        <Link to="settings" className="flex flex-col items-center hover:text-pink-200">
-          <CogIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-          <span className="text-xs md:text-sm lg:text-base">Settings</span>
+      {/* <li className={location.pathname === '/settings' ? 'bg-pink-100 rounded-r-lg' : 'text-white'}>
+        <Link to="settings" className="flex items-center p-2 text-black hover:bg-pink-200 rounded-r-lg">
+          <CogIcon className="w-6 h-6" />
+          <span className="ml-4">Settings</span>
         </Link>
       </li> */}
     </ul>
     <button
       onClick={handleLogout}
-      className="mt-auto py-2 px-3 md:px-4 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 flex flex-col items-center"
+      className="mt-auto py-2 px-3 md:px-4 rounded-md hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 flex items-center"
     >
-      <LogoutIcon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 mb-1" />
-      <span className="text-xs md:text-sm lg:text-base">Logout</span>
+      <LogoutIcon className="w-6 h-6  ml-4" />
     </button>
   </div>
   

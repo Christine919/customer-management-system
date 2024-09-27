@@ -13,16 +13,18 @@ const DashboardLayout = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar styling */}
-      <div className="fixed bg-white shadow-lg">
-        <Sidebar />
-      </div>
+    <div className="text-var(--black) h-screen flex items-center justify-center">
+      <div className="grid h-[97%] w-[97%] rounded-3xl gap-4 grid-cols-[11rem_auto] bg-gradient-to-b from-[#fdf5e6] to-[#f8e1dd]">
+        {/* Sidebar on the left */}
+        <div className="h-full">
+          <Sidebar />
+        </div>
 
-      {/* Main content area styling */}
-      <div className="flex-1 p-8 ml-20">
-        {showCalendar && <Appointments />}
-        <Outlet />
+        {/* Right content area - only this section is scrollable */}
+        <div className="h-full overflow-y-auto p-4">
+          {showCalendar && <Appointments />}
+          <Outlet />
+        </div>
       </div>
     </div>
   );
