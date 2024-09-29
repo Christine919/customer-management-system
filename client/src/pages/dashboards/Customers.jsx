@@ -200,7 +200,12 @@ const Customers = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4 text-white-800">Clients</h2>
+     <div className='flex flex-col pb-4'>
+     <h2 className="flex-none w-20 text-2xl font-bold mb-4 text-white-800">Clients</h2>
+     <Link to={'new-customer'} className="flex-none w-20 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+     Add
+     </Link>
+     </div>
 
       {!viewCustomer && !editCustomer && (
         <div className="overflow-x-auto rounded-lg">

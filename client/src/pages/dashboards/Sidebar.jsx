@@ -55,20 +55,6 @@ const handleSelection = (path) => {
       </li>
       <li
           className={`${
-            selected === 'products' ? 'bg-[#f799a354]  rounded-r-lg' : 'text-black'
-          }`}
-        >
-          <Link
-            to="products"
-            className="flex items-center p-2 rounded-r-lg  ml-4"
-            onClick={() => handleSelection('products')}
-          >
-          <ShoppingBagIcon className="w-6 h-6" />
-          <span className="ml-4">Products</span>
-        </Link>
-      </li>
-      <li
-          className={`${
             selected === 'services' ? 'bg-[#f799a354]  rounded-r-lg' : 'text-black'
           }`}
         >
@@ -83,6 +69,20 @@ const handleSelection = (path) => {
       </li>
       <li
           className={`${
+            selected === 'products' ? 'bg-[#f799a354]  rounded-r-lg' : 'text-black'
+          }`}
+        >
+          <Link
+            to="products"
+            className="flex items-center p-2 rounded-r-lg  ml-4"
+            onClick={() => handleSelection('products')}
+          >
+          <ShoppingBagIcon className="w-6 h-6" />
+          <span className="ml-4">Products</span>
+        </Link>
+      </li>
+      <li
+          className={`${
             selected === 'appointments' ? 'bg-[#f799a354]  rounded-r-lg ' : 'text-black'
           }`}
         >
@@ -92,7 +92,7 @@ const handleSelection = (path) => {
             onClick={() => handleSelection('appointments')}
           >
           <CalendarIcon className="w-6 h-6" />
-          <span className="ml-4">Calendar</span>
+          <span className="ml-4">Appointment</span>
         </Link>
       </li>
       {/* <li className={location.pathname === '/sales' ? 'bg-pink-100 rounded-r-lg' : 'text-white'}>

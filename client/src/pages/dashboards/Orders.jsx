@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ImageUpload from '../components/ImageUpload';
 import Modal from '../components/Modal';
+import { Link } from 'react-router-dom';
 
 const MySwal = withReactContent(Swal);
 
@@ -513,7 +514,12 @@ const handlePhotoRemove = (photoUrl) => {
 
     return (
         <div className="container mx-auto p-4">
-    <h1 className="text-2xl font-bold mb-4">Orders</h1>
+             <div className='flex flex-col pb-4'>
+                <h1 className="text-2xl font-bold mb-4">Orders</h1>
+                <Link to={'new-order'} className="flex-none w-20 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                Add
+                </Link>
+              </div>
     
     {!selectedOrder ? (
           <div className="overflow-x-auto rounded-lg">

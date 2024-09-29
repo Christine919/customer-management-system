@@ -36,7 +36,9 @@ function MainLayout() {
         {/* backend (protected) */}
         <Route path="/backend" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route path="customers" element={<Customers />} />
+          <Route path="customers/new-customer" element={<NewCustomerForm />} />
           <Route path="orders" element={<OrderDashboard />} />
+          <Route path="orders/new-order" element={<NewOrderForm />} />
           <Route path="products" element={<ProductsList />} />
           <Route path="services" element={<ServicesList />} />
           <Route path="appointments" element={<AppointmentCalendar />} />

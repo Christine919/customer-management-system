@@ -346,7 +346,7 @@ const NewOrderForm = () => {
         setTimeout(() => setIsSubmitted(false), 1000); 
   
         // Optionally navigate to another page or reset form state
-        navigate('/new-order');
+        navigate('/backend/orders');
       });
 
     } catch (error) {

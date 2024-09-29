@@ -110,7 +110,7 @@ const NewCustomerForm = () => {
                 skincare_program: "",
                 micro_surgery: "",
             });
-            navigate('/'); // Optional: Redirect after successful submit
+            navigate('/backend/customers'); // Optional: Redirect after successful submit
         });
     } else {
         console.log("Unexpected response:", data, status);
