@@ -14,7 +14,7 @@ import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
 import Sales from './pages/dashboards/Sales.jsx';
 // import LoginPage from './pages/LoginPage';
-import ProtectedRoute from './ProtectedRoute';
+// import ProtectedRoute from './ProtectedRoute';
 import ViewOrder from './pages/components/ViewOrder.jsx';
 import './index.css';
 
