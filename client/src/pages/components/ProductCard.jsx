@@ -47,3 +47,4 @@ const closeModal = () => {
 };
 
 export default ProductCard;
+

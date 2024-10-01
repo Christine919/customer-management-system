@@ -1,5 +1,6 @@
 import React, { useEffect, useState}  from 'react';
 import bannerImage from '../images/banner.png'; 
+import about_me from '../images/about_me.jpg'
 import supabase from '../config/supabaseClient';
 import ProductSlider from './components/ProductSlide';
 import claymask from "../images/claymask.png"
@@ -104,7 +105,7 @@ const closeModal = () => {
   </div>
 </section>
 
-<div className="p-8 bg-gray-100 my-10">
+<div className="p-10 bg-gray-100 my-10">
   <h2 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">New Products</h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
     <div onClick={() => openModal(rose)} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
@@ -146,16 +147,59 @@ const closeModal = () => {
 
 
       {/* Products Section */}
-<div className="mt-6 p-8 border border-gray-300 shadow-lg rounded-lg bg-pink-50">
-  <section className="container mx-auto">
+<div className="mt-6 px-8 py-16 border border-gray-300 shadow-lg rounded-lg bg-pink-50">
+  <section id="products" className="container mx-auto">
     <h3 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">Our Products</h3>
     <ProductSlider />
   </section>
 </div>
 
+<section id='about'>
+  <div className="py-16 bg-white">
+    <h2 className="text-center text-3xl md:text-4xl font-bold text-pink-900 mb-6">
+      About Me
+    </h2>
+    <div className="flex flex-col md:flex-row items-center justify-center">
+      {/* Image */}
+      <div className="w-full md:w-1/2 max-w-sm mb-6 md:mb-0">
+        <img
+          src={about_me}
+          alt="About Me"
+          className="rounded-lg shadow-lg w-full h-auto object-cover"
+        />
+      </div>
+      {/* Text Content */}
+      <div className="w-full md:w-1/2 px-4 md:px-8">
+        <p className="text-lg text-gray-700 leading-relaxed mb-4">
+          Hi, I’m Britney, the owner of Aesthetics_23, a skincare studio based
+          in Melaka. My passion for beauty and wellness inspired me to create a
+          space where people can feel empowered through effective skincare
+          solutions. With years of experience in the beauty industry, I’m
+          dedicated to providing personalized skincare treatments that bring out
+          the best in your skin.
+        </p>
+        <p className="text-lg text-gray-700 leading-relaxed mb-4">
+          At Aesthetics_23, I believe that healthy skin is the foundation of
+          confidence. My approach combines modern skincare technology with a
+          deep understanding of individual skin needs. I am committed to helping
+          you achieve your skincare goals through customized treatments tailored
+          specifically to your skin type and concerns.
+        </p>
+        <p className="text-lg text-gray-700 leading-relaxed">
+          Whether you are looking to treat acne, rejuvenate your skin, or simply
+          enjoy a relaxing facial, I’m here to guide you on your skincare
+          journey. Welcome to Aesthetics_23, where every treatment is a step
+          toward glowing, healthy skin.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <div>
       {/* Contact Me Section */}
-      <section className="py-10 bg-white">
+      <section id="contact" className="py-16">
         <h2 className="text-center text-4xl md:text-2xl font-bold text-pink-900 mb-6">
           Contact Me for Appointments or Skincare Consultations
         </h2>
@@ -225,7 +269,7 @@ const closeModal = () => {
       </section>
     </div>
       {/* Location Section */}
-      <section className="py-10 bg-gray-100">
+      <section id="location" className="py-16 bg-gray-100">
         <h2 className="text-3xl font-bold text-center text-pink-900 mb-10">Our Location</h2>
         <div >
           {/* Google Map */}
@@ -247,3 +291,4 @@ const closeModal = () => {
 };
 
 export default HomePage;
+
