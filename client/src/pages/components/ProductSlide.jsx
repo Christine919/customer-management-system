@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Pagination, Autoplay, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
+import 'swiper/css/scrollbar';
 import ProductCard from './ProductCard';
 import supabase from '../../config/supabaseClient';
 
@@ -13,22 +16,16 @@ const ProductSlider = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Fetch products from Supabase
-        const { data, error } = await supabase
-          .from('products')
-          .select('*');
+        const { data, error } = await supabase.from('products').select('*');
 
         if (error) {
           throw error;
         }
 
-        // Update state with fetched products
         setProducts(data);
       } catch (error) {
-        // Handle error
         setError(error.message || 'An error occurred while fetching products.');
       } finally {
-        // Set loading to false
         setLoading(false);
       }
     };
@@ -47,17 +44,38 @@ const ProductSlider = () => {
   return (
     <div className="py-10">
       <Swiper
-      spaceBetween={20}
-      slidesPerView={3}
-     >
+        spaceBetween={20} // Space between slides (in pixels)
+        slidesPerView={1} // Slides per view at the smallest breakpoint
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{ clickable: true }} // Enable pagination dots
+        scrollbar={{ draggable: true }} // Enable a draggable scrollbar
+        modules={[Pagination, Autoplay, Scrollbar, A11y]} // Include required modules
+        breakpoints={{
+          640: {
+            width: 640,
+            slidesPerView: 2, // Show 2 slides at 640px wide
+          },
+          768: {
+            width: 768,
+            slidesPerView: 3, // Show 3 slides at 768px wide
+          },
+          1024: {
+            width: 1024,
+            slidesPerView: 4, // Show 4 slides at 1024px wide
+          },
+        }}
+      >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
             <ProductCard
               product={{
                 id: product.id,
                 name: product.product_name,
-                price: `RM ${product.product_price}`, // Format price if necessary
-                image: product.image[0], // Assuming image is an array, take the first image
+                price: `RM ${product.product_price}`,
+                image: product.image[0],
               }}
             />
           </SwiperSlide>
@@ -68,4 +86,3 @@ const ProductSlider = () => {
 };
 
 export default ProductSlider;
-
