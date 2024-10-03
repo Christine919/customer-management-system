@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Pagination, Autoplay, Scrollbar, A11y } from 'swiper/modules';
+import { Autoplay, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/scrollbar';
 import ProductCard from './ProductCard';
@@ -50,9 +49,8 @@ const ProductSlider = () => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        pagination={{ clickable: true }} // Enable pagination dots
         scrollbar={{ draggable: true }} // Enable a draggable scrollbar
-        modules={[Pagination, Autoplay, Scrollbar, A11y]} // Include required modules
+        modules={[Autoplay, Scrollbar, A11y]} // Include required modules
         breakpoints={{
           640: {
             width: 640,
