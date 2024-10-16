@@ -230,7 +230,7 @@ const handleDeleteService = async (service_id) => {
               <tr key={service.service_id} className="border-b border-gray-200">
                 <td className="py-3 px-4">{service.service_id}</td>
                 <td className="py-3 px-4">{service.service_name}</td>
-                <td className="py-3 px-4">${service.service_price}</td>
+                <td className="py-3 px-4">RM {service.service_price}</td>
                 <td className="py-3 px-4">
                   <button onClick={() => setEditService(service)} className="text-blue-500 font-semibold px-3 py-1 hover:text-blue-700">
                     Edit
