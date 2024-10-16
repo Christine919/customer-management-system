@@ -254,7 +254,7 @@ const AppointmentCalendar = () => {
         </div>
         <div className="ml-6 w-full">
           {isNew || editMode ? (
-            <form onSubmit={isNew ? handleAddAppointment : handleUpdateAppointment} className="mt-4">
+            <form onSubmit={isNew ? handleAddAppointment : handleUpdateAppointment} className="my-4">
               <input type="text" name="phone_no" placeholder="Phone No" value={newAppointment.phone_no} onChange={handleInputChange} className="border rounded-lg p-2 w-full" required />
               <input type="text" name="fname" placeholder="First Name" value={newAppointment.fname} onChange={handleInputChange} className="border rounded-lg p-2 w-full mt-2" required />
               <input type="text" name="lname" placeholder="Last Name" value={newAppointment.lname} onChange={handleInputChange} className="border rounded-lg p-2 w-full mt-2" required />

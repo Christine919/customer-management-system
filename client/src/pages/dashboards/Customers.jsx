@@ -306,8 +306,8 @@ const Customers = () => {
                   <td className="py-3 px-4">{order.payment_method}</td>
                   <td className="py-3 px-4">{formatDate(order.paid_date)}</td>
                   <td className="py-3 px-4">{order.order_status}</td>
-                  <td className="py-3 px-4">
-                                <Link to={`/orders/${order.order_id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  <td className="py-3 px-2 md:px-4">
+                                <Link to={`/orders/${order.order_id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 text-xs md:px-4 rounded">
                                     View Order
                                 </Link>
                             </td>
