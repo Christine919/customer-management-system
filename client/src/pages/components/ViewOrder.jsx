@@ -66,7 +66,7 @@ export default function ViewOrder() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Order Details</h2>
+                <h2 className="text-3xl font-bold my-10 text-center text-gray-800">Order Details</h2>
                 
                 <div className="space-y-4">
                     <p><strong>Order ID:</strong> {orderDetails.order_id}</p>
