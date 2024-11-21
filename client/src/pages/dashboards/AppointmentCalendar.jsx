@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { FaEdit, FaTimes, FaPlus, FaRegCalendar } from 'react-icons/fa'; 
+import { FaEdit, FaTimes, FaPlus, FaRegCalendar } from 'react-icons/fa';
 
 const MySwal = withReactContent(Swal);
 
@@ -14,7 +14,7 @@ const AppointmentCalendar = () => {
   const [selectedAppointments, setSelectedAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [isNew, setIsNew] = useState(false); 
+  const [isNew, setIsNew] = useState(false);
   const [newAppointment, setNewAppointment] = useState({
     user_id: '',
     fname: '',
@@ -23,7 +23,7 @@ const AppointmentCalendar = () => {
     app_date: '',
     app_time: '',
     remark: '',
-    app_status: 'Scheduled', 
+    app_status: 'Scheduled',
   });
 
   useEffect(() => {
@@ -223,15 +223,15 @@ const AppointmentCalendar = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
       <div className="flex flex-row">
-      <h2 className="text-2xl font-bold mb-4">Appointments</h2>
         <button
-            onClick={() => { setIsNew(true); setEditMode(false); }}
-            className="w-7 h-8 text-green-500  py-2 px-2 rounded hover:text-green-600"
-          >
-            <FaPlus /> 
-          </button>
+          onClick={() => { setIsNew(true); setEditMode(false); }}
+          className=" w-8 h-8 py-2 px-2 mr-4 bg-green-400 text-white rounded-full hover:bg-green-600"
+        >
+          <FaPlus className="text-center " />
+        </button>
+        <h2 className="text-2xl font-bold mb-4">Appointments</h2>
       </div>
-       
+
       <div className="flex">
         <div className="w-full max-w-sm mx-auto">
           <Calendar
@@ -276,27 +276,82 @@ const AppointmentCalendar = () => {
               </div>
             </form>
           ) : null}
-         <div className="flex items-center">
-      <FaRegCalendar className="mr-2" />
-      <h3 className="text-xl font-semibold">{value.toLocaleDateString('en-MY', { timeZone: 'Asia/Kuala_Lumpur' })}</h3>
-    </div>
-          <ul className="mt-4">
-            {selectedAppointments.sort((a, b) => new Date(`${a.app_date}T${a.app_time}`) - new Date(`${b.app_date}T${b.app_time}`)).map((appointment) => (
-              <li key={appointment.app_id} className="flex justify-between items-center p-4 border-b" style={{ backgroundColor: appointment.app_status === 'Scheduled' ? '#d4edda' : appointment.app_status === 'Completed' ? '#fff3cd' : '#f8d7da' }}>
-                <div>
-                  <p className="font-semibold"><strong>{appointment.fname} {appointment.lname}</strong></p>
-                  <p><span className="font-semibold">Phone: </span>{appointment.phone_no}</p>
-                  <p><span className="font-semibold">Date: </span>{new Date(appointment.app_date).toLocaleDateString('en-MY', { timeZone: 'Asia/Kuala_Lumpur' })}</p>
-                  <p><span className="font-semibold">Time: </span>{new Date(`${appointment.app_date}T${appointment.app_time}`).toLocaleTimeString('en-MY', { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit' })}</p>
-                  <p><span className="font-semibold">Remark: </span>{appointment.remark}</p>
-                  <p><span className="font-semibold">Status: </span>{appointment.app_status}</p>
-                </div>
-                <div className="flex">
-                  <button onClick={() => handleEdit(appointment)} className="text-yellow-500 hover:underline ml-2"><FaEdit /></button>
-                  <button onClick={() => handleDelete(appointment.app_id)} className="text-red-500 hover:underline ml-2"><FaTimes /></button>
-                </div>
-              </li>
-            ))}
+          <div className="flex items-center">
+            <FaRegCalendar className="mr-2" />
+            <h3 className="text-xl font-semibold">{value.toLocaleDateString('en-MY', { timeZone: 'Asia/Kuala_Lumpur' })}</h3>
+          </div>
+          <ul className="mt-4 space-y-4">
+            {selectedAppointments
+              .sort((a, b) => new Date(`${a.app_date}T${a.app_time}`) - new Date(`${b.app_date}T${b.app_time}`))
+              .map((appointment) => (
+                <li
+                  key={appointment.app_id}
+                  className={`flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-lg shadow-lg border ${appointment.app_status === "Scheduled"
+                      ? "bg-green-50 border-green-200"
+                      : appointment.app_status === "Completed"
+                        ? "bg-yellow-50 border-yellow-200"
+                        : "bg-red-50 border-red-200"
+                    }`}
+                >
+                  {/* Appointment Details */}
+                  <div className="space-y-2">
+                    <p className="text-lg font-bold text-gray-800">
+                      {appointment.fname} {appointment.lname}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Phone:</span> {appointment.phone_no}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Date:</span>{" "}
+                      {new Date(appointment.app_date).toLocaleDateString("en-MY", {
+                        timeZone: "Asia/Kuala_Lumpur",
+                      })}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Time:</span>{" "}
+                      {new Date(`${appointment.app_date}T${appointment.app_time}`).toLocaleTimeString(
+                        "en-MY",
+                        {
+                          timeZone: "Asia/Kuala_Lumpur",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        }
+                      )}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Remark:</span> {appointment.remark}
+                    </p>
+                    <p
+                      className={`text-sm font-medium ${appointment.app_status === "Scheduled"
+                          ? "text-green-600"
+                          : appointment.app_status === "Completed"
+                            ? "text-yellow-600"
+                            : "text-red-600"
+                        }`}
+                    >
+                      Status: {appointment.app_status}
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-4 mt-4 md:mt-0">
+                    <button
+                      onClick={() => handleEdit(appointment)}
+                      className="flex items-center gap-2 px-4 py-2 text-yellow-600 border border-yellow-300 rounded-md hover:bg-yellow-100 hover:shadow"
+                    >
+                      <FaEdit />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(appointment.app_id)}
+                      className="flex items-center gap-2 px-4 py-2 text-red-600 border border-red-300 rounded-md hover:bg-red-100 hover:shadow"
+                    >
+                      <FaTimes />
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
       </div>

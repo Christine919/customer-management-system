@@ -578,7 +578,7 @@ function OrderDashboard() {
             <div className='flex flex-col pb-4'>
                 <h1 className="text-2xl font-bold mb-4">Orders</h1>
                 <Link to={'new-order'}
-                    className="flex-none w-fit py-2 px-4 rounded bg-violet-500 text-white hover:bg-violet-700 transition-colors duration-300 ease-in-out">
+                    className="flex-none w-fit py-2 px-4 rounded text-white bg-violet-500 hover:bg-violet-700 transition-colors duration-300 ease-in-out">
                     + Add order
                 </Link>
             </div>

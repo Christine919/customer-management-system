@@ -196,7 +196,7 @@ const handleDeleteService = async (service_id) => {
              <>
              <button
                onClick={handleEditService}
-               className="bg-yellow-400 py-2 px-6 mr-2 rounded-md hover:bg-pink-600"
+               className="bg-yellow-400 py-2 px-6 mr-2 rounded-md hover:bg-yellow-500"
              >
                Update
              </button>
@@ -208,7 +208,7 @@ const handleDeleteService = async (service_id) => {
              </button>
            </>
             ) : (
-              <button onClick={handleAddService} className="bg-yellow-400 py-2 px-8 rounded-md hover:bg-pink-600">
+              <button onClick={handleAddService} className="bg-yellow-400 py-2 px-8 rounded-md hover:bg-yellow-500">
                 Add
               </button>
             )}

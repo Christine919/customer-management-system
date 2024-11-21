@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { GrView, GrFormEdit } from "react-icons/gr";
+import { MdDeleteOutline } from "react-icons/md";
 
 const MySwal = withReactContent(Swal);
 
@@ -202,15 +204,15 @@ const Customers = () => {
     <div className="container mx-auto p-4">
       <div className='flex flex-col pb-4'>
         <h2 className="flex-none w-20 text-2xl font-bold mb-4 text-white-800">Clients</h2>
-        <Link to={'new-customer'} className="flex-none w-20 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-          Add
+        <Link to={'new-customer'} className="flex-none w-fit py-2 px-4 rounded text-white bg-violet-500 hover:bg-violet-700 transition-colors duration-300 ease-in-out ">
+          + Add client
         </Link>
       </div>
 
       {!viewCustomer && !editCustomer && (
         <div className="overflow-x-auto rounded-lg">
           <table className="min-w-full bg-white border border-gray-300 shadow-md">
-            <thead className="bg-gray-200 text-left text-white-500 uppercase text-sm leading-normal">
+            <thead className="bg-gray-200 text-left text-white-500 text-sm leading-normal">
               <tr>
                 <th className="py-3 px-4">ID</th>
                 <th className="py-3 px-4">First Name</th>
@@ -227,24 +229,29 @@ const Customers = () => {
                   <td className="py-3 px-4 text-left whitespace-nowrap">{customer.phone_no}</td>
                   <td className="py-3 px-4 text-left whitespace-nowrap">{formatDate(customer.date_of_birth)}</td>
                   <td className="py-3 px-4 text-left whitespace-nowrap">
-                    <button
-                      className="text-blue-500 font-semibold px-3 py-1 hover:text-blue-700"
-                      onClick={() => handleView(customer.user_id)}
-                    >
-                      View
-                    </button>
-                    <button
-                      className="text-yellow-500 font-semibold px-3 py- hover:text-yellow-700"
-                      onClick={() => handleEditClick(customer)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="text-red-500 font-semibold px-3 py-1 hover:text-red-600"
-                      onClick={() => handleDeleteCustomer(customer.user_id)}
-                    >
-                      Delete
-                    </button>
+                    <div className="flex items-center gap-3">
+                      <button
+                        className="flex items-center gap-2 text-blue-500 px-3 py-1 hover:text-blue-700"
+                        onClick={() => handleView(customer.user_id)}
+                      >
+                        <GrView className="text-base" />
+                        Preview
+                      </button>
+                      <button
+                        className="flex items-center gap-2 text-yellow-500 px-3 py- hover:text-yellow-700"
+                        onClick={() => handleEditClick(customer)}
+                      >
+                        <GrFormEdit className="text-base" />
+                        Edit
+                      </button>
+                      <button
+                        className="flex items-center gap-2 text-red-500 px-3 py-1 hover:text-red-600"
+                        onClick={() => handleDeleteCustomer(customer.user_id)}
+                      >
+                        <MdDeleteOutline className="text-base" />
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -578,7 +585,7 @@ const Customers = () => {
             <div className="text-center my-4">
               <button
                 type="submit"
-                className="bg-pink-500 text-white px-8 py-2 rounded-md hover:bg-pink-600"
+                className="bg-green-500 text-white px-8 py-2 rounded-md hover:bg-green-600"
               >
                 Save
               </button>

@@ -205,7 +205,7 @@ const ProductsList = () => {
     <h2 className="text-xl font-medium mb-2">{editProduct ? 'Edit Product' : 'Add Product'}</h2>
                {editProduct ? (
                         <div className="flex space-x-4">
-                            <button type="submit" className="bg-yellow-400 py-1 px-6 rounded-md hover:bg-pink-600">
+                            <button type="submit" className="bg-yellow-400 py-1 px-6 rounded-md hover:bg-yellow-500">
                                 Update
                             </button>
                             <button type="button" className="bg-gray-400 py-1 px-6 rounded-md hover:bg-gray-500" onClick={handleCancelEdit}>
@@ -213,7 +213,7 @@ const ProductsList = () => {
                             </button>
                         </div>
                     ) : (
-                        <button type="submit" className="bg-yellow-400 py-1 px-8 rounded-md hover:bg-pink-600">
+                        <button type="submit" className="bg-yellow-400 py-1 px-8 rounded-md hover:bg-yellow-500">
                             Add
                         </button>
                     )}
