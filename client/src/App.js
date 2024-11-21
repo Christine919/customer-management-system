@@ -13,8 +13,8 @@ import ProductsList from './pages/dashboards/ProductsList.jsx';
 import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
 import Sales from './pages/dashboards/Sales.jsx';
-// import LoginPage from './pages/LoginPage';
-// import ProtectedRoute from './ProtectedRoute';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './ProtectedRoute';
 import ViewOrder from './pages/components/ViewOrder.jsx';
 import './index.css';
 
@@ -28,13 +28,20 @@ function MainLayout() {
       <Routes>
         {/* frontend */}
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/login" element={<LoginPage />} /> */}
-        <Route path="/new-customer" element={<NewCustomerForm />} />
+        <Route path="/login" element={<LoginPage />} />
+        {/* <Route path="/new-customer" element={<NewCustomerForm />} />
         <Route path="/new-appointment" element={<NewAppointmentForm />} />
-        <Route path="/new-order" element={<NewOrderForm />} />
+        <Route path="/new-order" element={<NewOrderForm />} /> */}
 
         {/* backend (protected) */}
-        <Route path="/backend" element={<DashboardLayout />}>
+        <Route
+          path="/backend/*"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="customers" element={<Customers />} />
           <Route path="customers/new-customer" element={<NewCustomerForm />} />
           <Route path="orders" element={<OrderDashboard />} />
@@ -44,7 +51,12 @@ function MainLayout() {
           <Route path="appointments" element={<AppointmentCalendar />} />
           <Route path="sales" element={<Sales />} />
         </Route>
+
+        {/* Individual Order View */}
         <Route path="/orders/:order_id" element={<ViewOrder />} />
+
+        {/* 404 Fallback */}
+        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
       </Routes>
       {!isBackendRoute && <Footer />}
     </>

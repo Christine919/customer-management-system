@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate for back navigation
+import { useParams, useNavigate } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
 import Modal from '../components/Modal';
+import SignaturePad from './SignaturePad';
+import Swal from 'sweetalert2'; 
+import withReactContent from 'sweetalert2-react-content'; 
+
+const MySwal = withReactContent(Swal);
 
 export default function ViewOrder() {
-    const { order_id } = useParams(); // get order_id from URL
-    const navigate = useNavigate(); // for navigating back
+    const { order_id } = useParams();
+    const navigate = useNavigate();
     const [orderDetails, setOrderDetails] = useState({
         order_id: '',
         user_id: '',
@@ -19,7 +24,8 @@ export default function ViewOrder() {
         order_remark: '',
         services: [],
         products: [],
-        photos: []
+        photos: [],
+        signature: null,
     });
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,22 +33,40 @@ export default function ViewOrder() {
 
     useEffect(() => {
         const fetchOrder = async () => {
+            setLoading(true);
+
             const { data, error } = await supabase
                 .from('orders')
                 .select(`
-                    order_id, user_id, fname, email, phone_no, total_order_price, payment_method, 
-                    paid_date, order_status, order_remark, photos, 
-                    orderservices ( service_name, service_price, total_service_price ), 
-                    orderproducts ( product_name, product_price, quantity, total_product_price )
+                    order_id, user_id, fname, email, phone_no, total_order_price, payment_method,
+                    paid_date, order_status, order_remark, photos, signature,
+                    orderservices(service_name, service_price, total_service_price),
+                    orderproducts(product_name, product_price, quantity, total_product_price)
                 `)
                 .eq('order_id', order_id)
-                .single(); // Fetch a single order based on order_id
+                .single();
 
             if (error) {
                 console.log(error);
-            } else {
-                setOrderDetails(data);
+                setLoading(false);
+                return;
             }
+
+            if (data.signature) {
+                // Generate a signed URL for the signature
+                const { data: signedUrlData, error: signedUrlError } = await supabase
+                    .storage
+                    .from('signatures') // Update this to the correct storage bucket name
+                    .createSignedUrl(data.signature.replace('signatures/', ''), 3600); // 3600 seconds = 1 hour
+
+                if (signedUrlError) {
+                    console.error('Error generating signed URL:', signedUrlError);
+                } else {
+                    data.signature = signedUrlData.signedUrl; // Replace the signature URL with the signed URL
+                }
+            }
+
+            setOrderDetails(data);
             setLoading(false);
         };
 
@@ -51,6 +75,46 @@ export default function ViewOrder() {
 
     if (loading) {
         return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    }
+
+    const handleSignatureUpload = async (signatureUrl) => {
+        try {
+            // Save signature URL in the database
+            const { error } = await supabase
+                .from("orders")
+                .update({ signature: signatureUrl })
+                .eq("order_id", order_id);
+
+                if (error) {
+                    console.error("Error saving signature URL:", error);
+                    await MySwal.fire({
+                        title: "Error!",
+                        text: "Failed to save the signature. Please try again.",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                } else {
+                    setOrderDetails((prev) => ({ ...prev, signature: signatureUrl }));
+                    await MySwal.fire({
+                        title: "Success!",
+                        text: "Signature saved with the order successfully!",
+                        icon: "success",
+                        confirmButtonText: "Great!",
+                    });
+                }
+            } catch (err) {
+                console.error("Unexpected error:", err);
+                await MySwal.fire({
+                    title: "Error!",
+                    text: "An unexpected error occurred. Please try again.",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
+            }
+        };
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     const openModal = (photoUrl) => {
@@ -67,7 +131,7 @@ export default function ViewOrder() {
         <div className="p-8 bg-gray-100 min-h-screen">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow-lg">
                 <h2 className="text-3xl font-bold my-10 text-center text-gray-800">Order Details</h2>
-                
+
                 <div className="space-y-4">
                     <p><strong>Order ID:</strong> {orderDetails.order_id}</p>
                     <p><strong>Customer Name:</strong> {orderDetails.fname}</p>
@@ -164,6 +228,23 @@ export default function ViewOrder() {
                     onClose={closeModal}
                     imageUrl={selectedPhotoUrl}
                 />
+
+                {/* Display signature if available */}
+                {orderDetails.signature ? (
+                    <div className="mt-6">
+                        <h3 className="text-xl font-bold">Customer Signature:</h3>
+                        <img
+                            src={orderDetails.signature}
+                            alt="Customer Signature"
+                            className="w-64 h-auto border rounded mt-4"
+                        />
+                    </div>
+                ) : (
+                    <SignaturePad
+                        order_id={orderDetails.order_id}
+                        onSignatureUpload={handleSignatureUpload}
+                    />
+                )}
 
                 {/* Back Button */}
                 <div className="mt-8 text-center">
