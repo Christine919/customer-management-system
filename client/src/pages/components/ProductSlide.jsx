@@ -33,41 +33,44 @@ const ProductSlider = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center py-20 text-lg text-gray-600">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="flex items-center justify-center py-20 text-lg text-red-500">Error: {error}</div>;
   }
 
   return (
-    <div className="py-10">
+    <div className="mx-auto py-4 md:px-4 lg:px-8 md:max-w-8xl">
       <Swiper
-        spaceBetween={20} // Space between slides (in pixels)
-        slidesPerView={1} // Slides per view at the smallest breakpoint
+        spaceBetween={16} // Reduce space between slides for better alignment
         autoplay={{
-          delay: 2500,
+          delay: 3000, // Adjust autoplay speed for better user experience
           disableOnInteraction: false,
         }}
-        scrollbar={{ draggable: true }} // Enable a draggable scrollbar
-        modules={[Autoplay, Scrollbar, A11y]} // Include required modules
+        scrollbar={{ draggable: true }}
+        modules={[Autoplay, Scrollbar, A11y]}
         breakpoints={{
-          640: {
-            width: 640,
-            slidesPerView: 2, // Show 2 slides at 640px wide
+          320: {
+            slidesPerView: 2, // Mobile: Show 1 slide
+            spaceBetween: 16,
           },
-          768: {
-            width: 768,
-            slidesPerView: 3, // Show 3 slides at 768px wide
+          640: {
+            slidesPerView: 2, // Tablets: Show 2 slides
+            spaceBetween: 20,
           },
           1024: {
-            width: 1024,
-            slidesPerView: 4, // Show 4 slides at 1024px wide
+            slidesPerView: 3, // Laptops: Show 3 slides
+            spaceBetween: 24,
+          },
+          1280: {
+            slidesPerView: 3, // Desktops: Show 4 slides
+            spaceBetween: 32,
           },
         }}
       >
         {products.map((product) => (
-          <SwiperSlide key={product.id}>
+          <SwiperSlide key={product.id} className="flex justify-center">
             <ProductCard
               product={{
                 id: product.id,

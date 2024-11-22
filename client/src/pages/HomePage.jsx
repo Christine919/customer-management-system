@@ -3,10 +3,10 @@ import bannerImage from '../images/banner.png';
 import about_me from '../images/about_me.jpg'
 import supabase from '../config/supabaseClient';
 import ProductSlider from './components/ProductSlide';
-import claymask from "../images/claymask.png"
-import rose from "../images/rose.png"
-import oat from "../images/oat.png"
-import peppermint from "../images/peppermint.png"
+// import claymask from "../images/claymask.png"
+// import rose from "../images/rose.png"
+// import oat from "../images/oat.png"
+// import peppermint from "../images/peppermint.png"
 import Modal from './components/Modal';
 import { SocialIcon } from 'react-social-icons';
 
@@ -52,7 +52,7 @@ const HomePage = () => {
 
   return (
     <div className="frontend p-2 min-h-screen sm:p-4 md:p-6 lg:p-8">
-      <h2 className="text-xl sm:text-2xl text-pink-800 font-bold mb-4 text-gray-800 md:text-3xl">Welcome to Aesthetics23 精简·美肌</h2>
+      <h2 className="text-xl sm:text-2xl text-pink-800 font-bold mb-4 md:text-3xl">Welcome to Aesthetics23 精简·美肌</h2>
 
       {/* Services Section with Banner */}
       <section className="mb-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col md:flex-col lg:flex-row">
@@ -62,19 +62,24 @@ const HomePage = () => {
         </div>
 
         {/* Our Services List */}
-        <div className="w-full lg:w-full p-2 sm:p-4 md:p-6">
-          <h3 className="text-lg sm:text-xl font-semibold uppercase mb-3 p-2 border-b border-purple-200 bg-purple-100 md:text-2xl">
+        <div className="w-full p-2 md:p-6">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold uppercase p-2 border-b border-purple-200 bg-purple-100">
             Skin Management 皮肤管理
           </h3>
-          {fetchError && (<p>{fetchError}</p>)}
+          {fetchError && <p className="text-sm text-red-500">{fetchError}</p>}
           <ul>
             {ourServices.length > 0 ? (
-              ourServices.map(service => (
-                <li key={service.service_id} className="flex justify-between items-center p-2 sm:p-3 md:p-4 border-b border-gray-200 hover:bg-gray-50 transition">
-                  <span className="font-medium text-gray-800 text-sm sm:text-base">
+              ourServices.map((service) => (
+                <li
+                  key={service.service_id}
+                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-2 border-b border-gray-200 hover:bg-gray-50 transition"
+                >
+                  {/* Service Name */}
+                  <span className="font-medium text-gray-800 text-xs md:text-lg">
                     {service.service_name}
                   </span>
-                  <span className="text-gray-600 text-xs sm:text-sm">
+                  {/* Service Price */}
+                  <span className="text-gray-600 text-xs md:text-lg mt-2 sm:mt-0">
                     RM {service.service_price}
                   </span>
                 </li>
@@ -83,17 +88,21 @@ const HomePage = () => {
               <li className="p-2 text-gray-600 text-sm">No services available</li>
             )}
           </ul>
-          <h3 className="text-lg sm:text-xl font-semibold uppercase mb-3 p-2 border-b border-purple-200 bg-purple-100 md:text-2xl">
+
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold uppercase p-2 border-b border-purple-200 bg-purple-100">
             Other Services 其他服务
           </h3>
           <ul>
             {otherServices.length > 0 ? (
-              otherServices.map(service => (
-                <li key={service.service_id} className="flex justify-between items-center p-2 sm:p-3 md:p-4 border-b border-gray-200 hover:bg-gray-50 transition">
-                  <span className="font-medium text-gray-800 text-sm sm:text-base">
+              otherServices.map((service) => (
+                <li
+                  key={service.service_id}
+                  className="flex justify-between items-center p-2 sm:p-3 md:p-4 border-b border-gray-200 hover:bg-gray-50 transition"
+                >
+                  <span className="font-medium text-gray-800 text-xs md:text-lg">
                     {service.service_name}
                   </span>
-                  <span className="text-gray-600 text-xs sm:text-sm">
+                  <span className="text-gray-600 text-xs md:text-lg">
                     RM {service.service_price}
                   </span>
                 </li>
@@ -105,7 +114,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <div className="p-10 bg-gray-100 my-10">
+      {/* <div className="p-10 bg-gray-100 my-10">
         <h2 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">New Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div onClick={() => openModal(rose)} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out">
@@ -137,7 +146,7 @@ const HomePage = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <Modal
         isOpen={isModalOpen}
@@ -147,7 +156,7 @@ const HomePage = () => {
 
 
       {/* Products Section */}
-      <div className="mt-6 px-8 py-16 border border-gray-300 shadow-lg rounded-lg bg-pink-50">
+      <div className="mt-6 py-16 border border-gray-300 shadow-lg rounded-lg bg-pink-50">
         <section id="products" className="container mx-auto">
           <h3 className="text-center text-2xl md:text-4xl font-bold text-pink-900 mb-6">Our Products</h3>
           <ProductSlider />

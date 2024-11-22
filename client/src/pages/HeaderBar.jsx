@@ -57,11 +57,11 @@ const HeaderBar = () => {
                 Location
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="/backend" className="hover:text-yellow-300 transition-colors duration-200">
                 Dashboard
               </a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
