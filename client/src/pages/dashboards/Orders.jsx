@@ -586,7 +586,7 @@ function OrderDashboard() {
             {!selectedOrder ? (
                 <>
                     <div className="border border-gray-300 shadow-md rounded-lg">
-                        <div className="overflow-hidden">
+                        <div className="overflow-x-auto">
                             <table className="table-auto w-full bg-white border-collapse">
                                 <thead className="bg-gray-200 text-left text-sm sticky top-0 z-10">
                                     <tr>

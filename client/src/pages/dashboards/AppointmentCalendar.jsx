@@ -280,17 +280,18 @@ const AppointmentCalendar = () => {
             <FaRegCalendar className="mr-2" />
             <h3 className="text-xl font-semibold">{value.toLocaleDateString('en-MY', { timeZone: 'Asia/Kuala_Lumpur' })}</h3>
           </div>
+
           <ul className="mt-4 space-y-4">
             {selectedAppointments
               .sort((a, b) => new Date(`${a.app_date}T${a.app_time}`) - new Date(`${b.app_date}T${b.app_time}`))
               .map((appointment) => (
                 <li
                   key={appointment.app_id}
-                  className={`flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-lg shadow-lg border ${appointment.app_status === "Scheduled"
-                      ? "bg-green-50 border-green-200"
-                      : appointment.app_status === "Completed"
-                        ? "bg-yellow-50 border-yellow-200"
-                        : "bg-red-50 border-red-200"
+                  className={`flex flex-col gap-4 p-6 rounded-lg shadow-lg border ${appointment.app_status === "Scheduled"
+                    ? "bg-green-50 border-green-200"
+                    : appointment.app_status === "Completed"
+                      ? "bg-yellow-50 border-yellow-200"
+                      : "bg-red-50 border-red-200"
                     }`}
                 >
                   {/* Appointment Details */}
@@ -319,14 +320,15 @@ const AppointmentCalendar = () => {
                       )}
                     </p>
                     <p className="text-sm text-gray-600">
-                      <span className="font-medium">Remark:</span> {appointment.remark}
+                      <span className="font-medium">Remark:</span>{" "}
+                      {appointment.remark || "N/A"}
                     </p>
                     <p
-                      className={`text-sm font-medium ${appointment.app_status === "Scheduled"
-                          ? "text-green-600"
-                          : appointment.app_status === "Completed"
-                            ? "text-yellow-600"
-                            : "text-red-600"
+                      className={`inline-block px-2 py-1 rounded-full text-sm font-medium border ${appointment.app_status === "Scheduled"
+                        ? "text-green-600 border-green-400 bg-green-100"
+                        : appointment.app_status === "Completed"
+                          ? "text-yellow-600 border-yellow-400 bg-yellow-100"
+                          : "text-red-600 border-red-400 bg-red-100"
                         }`}
                     >
                       Status: {appointment.app_status}
@@ -334,7 +336,7 @@ const AppointmentCalendar = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex gap-4 mt-4 md:mt-0">
+                  <div className="flex gap-4">
                     <button
                       onClick={() => handleEdit(appointment)}
                       className="flex items-center gap-2 px-4 py-2 text-yellow-600 border border-yellow-300 rounded-md hover:bg-yellow-100 hover:shadow"
