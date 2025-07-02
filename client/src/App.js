@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import HeaderBar from './pages/HeaderBar.jsx';
 import Footer from './pages/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -29,6 +29,7 @@ function MainLayout() {
 
         {/* dashboard */}
         <Route path="/dashboard/*" element={<DashboardLayout />}>
+          <Route index element={<Navigate to="appointments" replace />} />
           <Route path="customers" element={<Customers />} />
           <Route path="customers/new-customer" element={<NewCustomerForm />} />
           <Route path="orders" element={<OrderDashboard />} />
