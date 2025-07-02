@@ -6,7 +6,7 @@ const HeaderBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Toggle the mobile menu
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -16,10 +16,10 @@ const HeaderBar = () => {
 
     const handleScroll = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 50) {
-        // Scrolling down
+
         setIsVisible(false);
       } else {
-        // Scrolling up
+
         setIsVisible(true);
       }
       lastScrollY = window.scrollY;
@@ -34,9 +34,8 @@ const HeaderBar = () => {
 
   return (
     <header
-      className={`bg-gradient-to-r from-pink-600 via-transparent to-purple-600 text-white p-2 sm:p-3 shadow-md fixed top-0 left-0 w-full z-50 backdrop-blur-md transform-gpu transition-all duration-500 ease-in-out ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      }`}
+      className={`bg-gradient-to-r from-pink-600 via-transparent to-purple-600 text-white p-2 sm:p-3 shadow-md fixed top-0 left-0 w-full z-50 backdrop-blur-md transform-gpu transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        }`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <a href="/" className="flex items-center">
@@ -69,6 +68,11 @@ const HeaderBar = () => {
             <li>
               <a href="#location" className="hover:text-yellow-300 transition-colors duration-200">
                 Location
+              </a>
+            </li>
+            <li>
+              <a href="/dashboard" className="hover:text-yellow-300 transition-colors duration-200">
+                Dashboard
               </a>
             </li>
           </ul>
@@ -131,6 +135,15 @@ const HeaderBar = () => {
                 onClick={toggleMenu}
               >
                 Location
+              </a>
+            </li>
+            <li>
+              <a
+                href="/dashboard"
+                className="hover:text-pink-400 transition-colors duration-200"
+                onClick={toggleMenu}
+              >
+                Dashboard
               </a>
             </li>
           </ul>

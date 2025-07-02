@@ -13,14 +13,12 @@ import ProductsList from './pages/dashboards/ProductsList.jsx';
 import ServicesList from './pages/dashboards/ServicesList.jsx';
 import AppointmentCalendar from './pages/dashboards/AppointmentCalendar.jsx';
 import Sales from './pages/dashboards/Sales.jsx';
-import LoginPage from './pages/LoginPage';
-import ProtectedRoute from './ProtectedRoute';
 import ViewOrder from './pages/components/ViewOrder.jsx';
 import './index.css';
 
 function MainLayout() {
   const location = useLocation();
-  const isBackendRoute = location.pathname.startsWith('/backend');
+  const isBackendRoute = location.pathname.startsWith('/dashboard');
 
   return (
     <>
@@ -28,20 +26,9 @@ function MainLayout() {
       <Routes>
         {/* frontend */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        {/* <Route path="/new-customer" element={<NewCustomerForm />} />
-        <Route path="/new-appointment" element={<NewAppointmentForm />} />
-        <Route path="/new-order" element={<NewOrderForm />} /> */}
 
-        {/* backend (protected) */}
-        <Route
-          path="/backend/*"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
+        {/* dashboard */}
+        <Route path="/dashboard/*" element={<DashboardLayout />}>
           <Route path="customers" element={<Customers />} />
           <Route path="customers/new-customer" element={<NewCustomerForm />} />
           <Route path="orders" element={<OrderDashboard />} />
